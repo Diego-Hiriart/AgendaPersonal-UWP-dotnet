@@ -1,0 +1,76 @@
+﻿<Page
+    x:Class="Hiriart_Corales_UWPApp_AgendaPersonal.Views.EventosPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:Hiriart_Corales_UWPApp_AgendaPersonal.Core.Models"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+    <Grid x:ConnectionId='2' x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <RelativePanel>
+                <ListView x:ConnectionId='3' Name="ArtistasList"
+                  SelectionMode="Single"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.IsVerticalRailEnabled="True"
+                  ScrollViewer.VerticalScrollMode="Enabled"
+                  ScrollViewer.HorizontalScrollMode="Enabled"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.IsHorizontalRailEnabled="True"
+                  Margin="20">
+                    <ListView.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal"  >
+                                <TextBlock Text="Fecha" Margin="8,0" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Hora inicio" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Hora fin" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Título" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Descripción" Width="200" Foreground="#FF403D3D" />
+                                <TextBlock Text="Ubicación" Width="200" Foreground="#FF403D3D" />
+                                <TextBlock Text="Es serie" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Días" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Contactos relacionados" Width="150" Foreground="#FF403D3D" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.HeaderTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate                          >
+                            <StackPanel x:ConnectionId='6' Orientation="Horizontal" >
+                                <TextBlock x:ConnectionId='7' Name="fechaTextBlock"
+                                                            
+                                       Width="150" TextWrapping="Wrap"/>
+                                <TextBlock x:ConnectionId='8' Name="inicioTextBlock"
+                                                             
+                                       Width="150" TextWrapping="Wrap"/>
+                                <TextBlock x:ConnectionId='9' Name="finTextBlock"
+                                                          
+                                       Width="150" TextWrapping="Wrap"/>
+                                <TextBlock x:ConnectionId='10' Name="tituloTextBlock"
+                                                             
+                                       Width="150" TextWrapping="Wrap"/>
+                                <TextBlock x:ConnectionId='11' Name="descripcionTextBlock"
+                                                                  
+                                       Width="200" TextWrapping="Wrap"/>
+                                <TextBlock x:ConnectionId='12' Name="ubicacionTextBlock"
+                                                                
+                                       Width="200" TextWrapping="Wrap"/>
+                                <TextBlock x:ConnectionId='13' Name="esSerieTextBlock"
+                                                              
+                                       Width="150" TextWrapping="Wrap"/>
+                                <TextBlock x:ConnectionId='14' Name="diasTextBlock"
+                                                           
+                                       Width="150" TextWrapping="Wrap"/>
+                                <TextBlock x:ConnectionId='15' Name="contactosTextBlock"
+                                                                      
+                                       Width="150" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </RelativePanel>
+        </Grid>
+    </Grid>
+</Page>
+

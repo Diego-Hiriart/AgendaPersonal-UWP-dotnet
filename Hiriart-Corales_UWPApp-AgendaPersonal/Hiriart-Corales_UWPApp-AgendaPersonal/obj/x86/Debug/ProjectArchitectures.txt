@@ -1,0 +1,1 @@
+C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal.csproj;x86
