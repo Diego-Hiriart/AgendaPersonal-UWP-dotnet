@@ -16,7 +16,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
         }
 
         //El siguiente metodo es static para poder llamarlo sin instanciar, también se le prodía colocar en una librería de funciones para SQL
-        public static ObservableCollection<Diario> GetDiarios(string connectionString)//Metodo para recuperar datos
+        public static ObservableCollection<Diario> ReadDiarios(string connectionString)//Metodo para recuperar datos
         {
             const string GetDiariosQuery = "select DiarioID, Fecha, Contenido " +//Definicion de lo que queremos de Diario
                 "from Diarios";
@@ -27,7 +27,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    if (conn.State == System.Data.ConnectionState.Open)
+                    if (conn.State == ConnectionState.Open)
                     {
                         using (SqlCommand cmd = conn.CreateCommand())
                         {
@@ -84,6 +84,143 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                 Debug.WriteLine("Exception: " + eSql.Message);
             }
             return null;
+        }
+
+        public static bool CreateDiario(string connectionString, DateTimeOffset fecha, string contenido, List<int?> eventos)
+        {
+            DateTime fechaEntrada = fecha.Date;//transformar de DateTiemOffset a DateTime
+
+            //Primero insertar una nueva entrada de Diarios
+            const string insertarDiario = "insert into Diarios(Fecha, Contenido) " +
+                "values(@Fecha, @Contenido)";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    if (conn.State == ConnectionState.Open)
+                    {
+                        using (SqlCommand cmd = conn.CreateCommand())
+                        {
+                            cmd.CommandText = insertarDiario;
+                            cmd.Parameters.AddWithValue("@Fecha", fechaEntrada);
+                            cmd.Parameters.AddWithValue("@Contenido", contenido);
+                            cmd.ExecuteNonQuery();
+
+                            //Ahora, asociar los eventos al Diario, en caso de ser necesario
+                            if (eventos.Count != 0)
+                            {
+                                //Primero, obtener el ID del ultimo diario, es decir el que se ingreso ahora, para poder asociar
+                                List<int?> idDiarios = new List<int?>();//Lista para guardar los ids leidos
+                                const string ids = "select DiarioID from Diarios";
+                                cmd.CommandText = ids;
+                                using(SqlDataReader lector = cmd.ExecuteReader())
+                                {
+                                    while (lector.Read())
+                                    {
+                                        idDiarios.Add(lector[0] as int?);
+                                    }
+                                }
+                                int ultimaEntrada=0;
+                                foreach (int id in idDiarios)//Obtener ultima entrada, debe ser el id mas alto
+                                {
+                                    if (id>ultimaEntrada)
+                                    {
+                                        ultimaEntrada = id;
+                                    }
+                                }
+
+                                //Asociar cada evento de la lista con la entrada de diario
+                                foreach (int id in eventos)
+                                {
+                                    const string editarAsociacion = "update ListaEventoes set IDDiario=@ID where ListaEventoID=@evento";
+                                    cmd.CommandText = editarAsociacion;
+                                    cmd.Parameters.AddWithValue("@IDDiario", ultimaEntrada);
+                                    cmd.Parameters.AddWithValue("@evento", id);
+                                    cmd.ExecuteNonQuery();
+                                }                               
+                            }
+                        }                      
+                    }
+
+                }
+                return true;//Retorna true si es que se pudo ingesar el dato
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+                return false;//Retorna false si algo paso, asi no se borra nada en los TextBox
+            }
+        }
+
+        public static bool DeleteDiario(string connectionString, int id)
+        {
+            const string borrar = "delete from Diarios where DiarioID=@ID";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    if (conn.State == ConnectionState.Open)
+                    {
+                        using (SqlCommand cmd = conn.CreateCommand())
+                        {
+                            cmd.CommandText = borrar;
+                            cmd.Parameters.AddWithValue("@ID", id);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+                return true;//Retornar true para notificar borrado exitoso
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+                return false;//Retorna false si no se borro para notificar
+            }
+        }
+
+        public static bool UpdateDiario(string connectionString, int DiarioID, DateTimeOffset fecha, string contenido, List<int?> eventos)
+        {
+            DateTime fechaNueva = fecha.Date;//transformar de DateTiemOffset a DateTime
+
+            const string editarDiario = "update Diarios set Fecha=@fecha, Contenido=@contenido where DiarioID=@id";
+
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(connectionString))
+                {
+                    conexion.Open();
+                    if(conexion.State == ConnectionState.Open)
+                    {
+                        using (SqlCommand consola = conexion.CreateCommand())
+                        {
+                            consola.CommandText = editarDiario;
+                            consola.Parameters.AddWithValue("@fecha", fecha);
+                            consola.Parameters.AddWithValue("@contenido", contenido);
+                            consola.Parameters.AddWithValue("@id", DiarioID);
+                            consola.ExecuteNonQuery();
+
+                            foreach (int id in eventos)
+                            {
+                                const string editarAsociacion = "update ListaEventoes set IDDiario=@ID where ListaEventoID=@evento";
+                                consola.CommandText = editarAsociacion;
+                                consola.Parameters.AddWithValue("@IDDiario", DiarioID);
+                                consola.Parameters.AddWithValue("@evento", id);
+                                consola.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+                return true;//Notficar edicion exitosa
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+                return false;//Avisar que no se pudo actualizar
+            }           
         }
     }
 }
