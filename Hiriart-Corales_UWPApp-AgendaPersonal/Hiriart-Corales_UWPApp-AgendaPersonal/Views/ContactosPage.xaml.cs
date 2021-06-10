@@ -3,6 +3,7 @@
 using Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels;
 
 using Windows.UI.Xaml.Controls;
+using static Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels.ContactosViewModel;
 
 namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
 {
@@ -13,6 +14,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
         public ContactosPage()
         {
             InitializeComponent();
+            ContactosList.ItemsSource = GetContactos((App.Current as App).ConnectionString);
         }
     }
 }

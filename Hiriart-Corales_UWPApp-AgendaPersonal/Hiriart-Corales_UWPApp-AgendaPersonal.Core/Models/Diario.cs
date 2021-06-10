@@ -10,6 +10,6 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Core.Models
         public DateTime Fecha { get; set; }
         public string Contenido { get; set; }
 
-        public List<Nullable<int>> ListaEventoID { get; set; }
+        public string Eventos { get; set; }//Al ser tipo string, ya es nullable
     }
 }

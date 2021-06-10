@@ -11,7 +11,7 @@
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <RelativePanel>
-                <ListView Name="ArtistasList"
+                <ListView Name="ContactosList"
                   SelectionMode="Single"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.IsVerticalRailEnabled="True"
@@ -57,6 +57,9 @@
                                 <TextBlock Name="infoAdicionalTextBlock"
                                        Text="{x:Bind InformacionAdicional}"
                                        Width="150" TextWrapping="Wrap"/>
+                                <TextBlock Name="idTextBlock"
+                                       Text="{x:Bind ContactoID}"
+                                       Width="0" TextWrapping="Wrap"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

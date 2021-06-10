@@ -9,6 +9,13 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal
 {
     public sealed partial class App : Application
     {
+        private string connectionString =
+        @"Data Source=DIEGOHL\SQLEXPRESS;Initial Catalog=Hiriart_Corales_MVCWebApp_AgendaPersonal.Models.AgendaPersonalCF_Hiriart_Corales;Integrated Security=SSPI";
+
+        //Luis
+
+        public string ConnectionString { get => connectionString; set => connectionString = value; }
+
         private Lazy<ActivationService> _activationService;
 
         private ActivationService ActivationService

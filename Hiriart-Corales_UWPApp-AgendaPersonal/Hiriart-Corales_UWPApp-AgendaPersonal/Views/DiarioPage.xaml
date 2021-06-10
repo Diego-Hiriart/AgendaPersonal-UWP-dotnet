@@ -11,7 +11,7 @@
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <RelativePanel>
-                <ListView Name="ArtistasList"
+                <ListView Name="DiariosList"
                   SelectionMode="Single"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.IsVerticalRailEnabled="True"
@@ -39,8 +39,11 @@
                                        Text="{x:Bind Contenido}"
                                        Width="500" TextWrapping="Wrap"/>
                             <TextBlock Name="eventosTextBlock"
-                                       Text="{x:Bind ListaEventoID}"
+                                       Text="{x:Bind Eventos}"
                                        Width="500" TextWrapping="Wrap"/>
+                            <TextBlock Name="idTextBlock"
+                                       Text="{x:Bind DiarioID}"
+                                       Width="0" TextWrapping="Wrap"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
