@@ -18,8 +18,11 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
         //El siguiente metodo es static para poder llamarlo sin instanciar, también se le prodía colocar en una librería de funciones para SQL
         public static ObservableCollection<Diario> ReadDiarios(string connectionString)//Metodo para recuperar datos
         {
-            const string GetDiariosQuery = "select DiarioID, Fecha, Contenido " +//Definicion de lo que queremos de Diario
-                "from Diarios";
+            const string GetDiariosQuery = "select Diarios.DiarioID, Diarios.Fecha, Diarios.Contenido, ListaEventoes.Titulo " +//Definicion de lo que queremos de Diario
+                "from Diarios left join ListaEventoes on ListaEventoes.IDDiario=Diarios.DiarioID";
+            /* left join permite sacar de dos tablas al mismo tiempo, siempre y cuando haya clave foranea que les relacione, 
+             * se debe poner tabla.Atributo para sacar porque hay dos tablas involucradas, left join coge todos, tengan o no relacion con la otra tabla
+            */
 
             var diarios = new ObservableCollection<Diario>();//Coleccion de diario para almacenar las entradas de la tabla
             try
@@ -31,52 +34,44 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                     {
                         using (SqlCommand cmd = conn.CreateCommand())
                         {
-                            var diario = new Diario();//Una instancia de artistas para ir guardando y almacenando lo que se lea de la base
                             cmd.CommandText = GetDiariosQuery;
                             using (SqlDataReader reader = cmd.ExecuteReader())
-                            {                     
+                            {
                                 while (reader.Read())
                                 {
+                                    var diario = new Diario();//Una instancia de diario para ir guardando y almacenando lo que se lea de la base
                                     diario.DiarioID = reader.GetInt32(0);//El parametro dentro de estos gets indica la posicion del atributo dentro de la tabla                                  
                                     diario.Fecha = reader.GetDateTime(1);
                                     //se usa "reader[numeroColumna] as tipoDato" para evitar errores por null
-                                    diario.Contenido = (string)reader[2];                                  
-                                }                          
-                            }
-                            /* Ahora se transforman los IDs de eventos en títulos de evento,
-                             * se hace luego de que acabe el anterior ExecuteReader de cmd pues
-                             * debe acabar el comando antes de ejecutar otro
-                            */
+                                    diario.Contenido = (string)reader[2];
+                                    /* Ahora se transforman los IDs de eventos en títulos de evento,
+                                     * se hace luego de que acabe el anterior ExecuteReader de cmd pues
+                                     * debe acabar el comando antes de ejecutar otro
+                                    */
 
-                            string titulos = "";
-                            //Lista para guardar los titulos de los eventos, instanciado para no tener problemas de null al asignar
+                                    string titulos = "";
+                                    //Lista para guardar los titulos de los eventos, instanciado para no tener problemas de null al asignar                                 
 
-                            const string EventoIDAEventoTiulo = "select Titulo from ListaEventoes where IDDiario = @id";
-                            //Hay maneras mas simples de hacer la cadena para el comando, pero esta evita inyeccion SQL, mejor acostumbrarse a usar, Atte. Diego                            
-                            cmd.CommandText = EventoIDAEventoTiulo;
-                            cmd.Parameters.AddWithValue("@id", diario.DiarioID);
-                            //Donde en la cadena tenga @id, reemplazar por el id de este diario                       
-                            using (SqlDataReader reader = cmd.ExecuteReader())                           
-                            {                             
-                                while (reader.Read())
-                                {
                                     if (titulos.Equals(""))//Si no hay nada pone el primero sin ningun formato
                                     {
-                                        titulos = reader[0] as string;
+                                        titulos = reader[3] as string;
+
                                     }
                                     else//Si ya habia algo, pone una coma y luego el otro
                                     {
-                                        titulos += ", " + reader[0] as string;
+                                        titulos += ", " + reader[3] as string;
                                     }
                                     //Se hace lo mismo que antes en este reader, para problemas de null
-                                }                              
-                            }                    
-                            diario.Eventos = titulos;
 
-                            diarios.Add(diario);//Aniade el diario que se creo antes a la coleccion
+
+                                    diario.Eventos = titulos;
+                                    
+                                    diarios.Add(diario);//Aniade el diario que se creo antes a la coleccion
+                                }
+                            }
                         }
                     }
-                }
+                }     
                 return diarios;
             }
             catch (Exception eSql)
@@ -93,6 +88,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
             //Primero insertar una nueva entrada de Diarios
             const string insertarDiario = "insert into Diarios(Fecha, Contenido) " +
                 "values(@Fecha, @Contenido)";
+            //Este tipo de sentencia con @Valor, permite llenar esos parametros luego, es más seguro porque evita inyección SQL, mejor acostumbarse a usar, Atte. Diego
 
             try
             {
@@ -134,9 +130,9 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                 //Asociar cada evento de la lista con la entrada de diario
                                 foreach (int id in eventos)
                                 {
-                                    const string editarAsociacion = "update ListaEventoes set IDDiario=@ID where ListaEventoID=@evento";
+                                    const string editarAsociacion = "update ListaEventoes set IDDiario=@ultima where ListaEventoID=@evento";
                                     cmd.CommandText = editarAsociacion;
-                                    cmd.Parameters.AddWithValue("@IDDiario", ultimaEntrada);
+                                    cmd.Parameters.AddWithValue("@ultima", ultimaEntrada);
                                     cmd.Parameters.AddWithValue("@evento", id);
                                     cmd.ExecuteNonQuery();
                                 }                               
@@ -221,6 +217,73 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                 Debug.WriteLine("Exception: " + eSql.Message);
                 return false;//Avisar que no se pudo actualizar
             }           
+        }
+
+        public static ObservableCollection<Evento> EventosVinculados(string connectionString, int DiarioID)
+        {
+            const string GetDiariosQuery = "select Eventoes.EventoID, Eventoes.Fecha, Eventoes.Inicio, Eventoes.Fin, " +//Definicion de lo que queremos de Evento
+                "Eventoes.Titulo, Eventoes.Descripcion, Eventoes.Ubicacion, Eventoes.EsSerie, Eventoes.Dias, ListaContactoes.NombreApellido from Eventoes " +
+                "inner join ListaEventoes on ListaEventoes.IDDiario=Diarios.DiarioID";
+            //inner join es parecido a left join, pero coge solo los que tienen relacion con la otra tabla
+
+            var eventos = new ObservableCollection<Evento>();//Coleccion de evento para almacenar las entradas de la tabla
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    if (conn.State == ConnectionState.Open)
+                    {
+                        using (SqlCommand cmd = conn.CreateCommand())
+                        {
+
+                            cmd.Parameters.AddWithValue("@ID", DiarioID);
+                            cmd.CommandText = GetDiariosQuery;
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    var evento = new Evento();//Una instancia de evento para ir guardando y almacenando lo que se lea de la base
+                                    evento.EventoID = reader.GetInt32(0);//El parametro dentro de estos gets indica la posicion del atributo dentro de la tabla                                  
+                                    evento.Fecha = reader.GetDateTime(1);
+                                    evento.Inicio = reader.GetDateTime(2);
+                                    evento.Fin = reader.GetDateTime(3);
+                                    //se usa "reader[numeroColumna] as tipoDato" para evitar errores por null
+                                    evento.Titulo = reader[4] as string;
+                                    evento.Descripcion = reader[5] as string;
+                                    evento.Ubicacion = reader[6] as string;
+                                    evento.EsSerie = reader.GetBoolean(7);
+                                    evento.Dias = reader[8] as string;
+
+                                    // Ahora se obtienen los contactos asociados
+                                    string nombres = "";
+                                    //Lista para guardar los nombres de los contactos, instanciado para no tener problemas de null al asignar
+
+                                    if (nombres.Equals(""))//Si no hay nada pone el primero sin ningun formato
+                                    {
+                                        nombres = reader[9] as string;
+                                    }
+                                    else//Si ya habia algo, pone una coma y luego el otro
+                                    {
+                                        nombres += ", " + reader[9] as string;
+                                    }
+                                    //Se hace lo mismo que antes en este reader, para problemas de null
+
+                                    evento.Contactos = nombres;
+
+                                    eventos.Add(evento);//Aniade el evento que se creo antes a la coleccion
+                                }
+                            }
+                        }
+                    }
+                }
+                return eventos;
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+            }
+            return null;
         }
     }
 }

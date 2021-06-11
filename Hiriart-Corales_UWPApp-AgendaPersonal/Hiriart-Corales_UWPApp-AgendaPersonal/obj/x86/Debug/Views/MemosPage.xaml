@@ -35,7 +35,7 @@
                                                                 
                                        Width="150" TextWrapping="Wrap"/>
                                 <TextBlock x:ConnectionId='8' Name="eventoTextBlock"
-                                                                    
+                                                             
                                        Width="150" TextWrapping="Wrap"/>
                                 <TextBlock x:ConnectionId='9' Name="idTextBlock"
                                                              

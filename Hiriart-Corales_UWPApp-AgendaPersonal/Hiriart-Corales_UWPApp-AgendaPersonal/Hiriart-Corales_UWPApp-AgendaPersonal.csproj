@@ -146,6 +146,12 @@
     <Compile Include="ViewModels\MemosViewModel.cs" />
     <Compile Include="ViewModels\NotificacionesViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\EditarDiario.xaml.cs">
+      <DependentUpon>EditarDiario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NuevoDiarioPage.xaml.cs">
+      <DependentUpon>NuevoDiarioPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ContactosPage.xaml.cs">
       <DependentUpon>ContactosPage.xaml</DependentUpon>
     </Compile>
@@ -189,6 +195,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\TextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditarDiario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NuevoDiarioPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

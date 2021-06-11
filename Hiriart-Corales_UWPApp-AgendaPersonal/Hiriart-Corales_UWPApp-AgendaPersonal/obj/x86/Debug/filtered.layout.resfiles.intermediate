@@ -14,9 +14,11 @@ Styles\Page.xbf
 Styles\TextBlock.xbf
 Views\ContactosPage.xbf
 Views\DiarioPage.xbf
+Views\EditarDiario.xbf
 Views\EventosPage.xbf
 Views\MemosPage.xbf
 Views\NotificacionesPage.xbf
+Views\NuevoDiarioPage.xbf
 Views\ShellPage.xbf
 Properties\Default.rd.xml
 WinMetadata\Windows.winmd

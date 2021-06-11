@@ -63,7 +63,7 @@
                                        Text="{x:Bind Dias}"
                                        Width="150" TextWrapping="Wrap"/>
                                 <TextBlock Name="contactosTextBlock"
-                                       Text="{x:Bind ContactoID}"
+                                       Text="{x:Bind Contactos}"
                                        Width="150" TextWrapping="Wrap"/>
                                 <TextBlock Name="idTextBlock"
                                        Text="{x:Bind EventoID}"

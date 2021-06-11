@@ -10,8 +10,25 @@
     <Grid x:ConnectionId='2' x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <RelativePanel>
-                <ListView x:ConnectionId='3' Name="DiariosList"
+            <CommandBar x:ConnectionId='3' Name="diarioCommandBar" VerticalAlignment="Top">
+                <CommandBar.PrimaryCommands>
+                    <AppBarButton x:ConnectionId='11' Name="nuevoBoton" Label="Nuevo" Icon="Add"                         />
+                    <AppBarSeparator/>
+                    <AppBarButton x:ConnectionId='12' Name="editarBoton" Label="Editar"  Icon="Edit"  Width="Auto"                          />
+                    <AppBarSeparator/>
+                    <AppBarButton x:ConnectionId='13' Name="eliminarBoton" Label="Eliminar"  Icon="Delete"  Width="Auto"                            />
+                    <AppBarSeparator/>
+                </CommandBar.PrimaryCommands>
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton x:ConnectionId='14' Name="ayudaBoton" Label="Ayuda"                         />
+                    <AppBarButton x:ConnectionId='15' Name="actualizarBoton" Label="Actualizar datos"                              />
+                </CommandBar.SecondaryCommands>
+                <CommandBar.Content>
+                    <TextBlock Text="Pantalla principal de Diarios"/>
+                </CommandBar.Content>
+            </CommandBar>
+            <RelativePanel Margin="0,20,0,0">
+                <ListView x:ConnectionId='4' Name="DiariosList"
                   SelectionMode="Single"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.IsVerticalRailEnabled="True"
@@ -23,7 +40,7 @@
                     <ListView.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"  >
-                                <TextBlock Text="Fecha" Margin="8,0" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Fecha (dd/mm/aa)" Margin="8,0" Width="150" Foreground="#FF403D3D" />
                                 <TextBlock Text="Contenido" Width="500" Foreground="#FF403D3D" />
                                 <TextBlock Text="Eventos relacionados" Width="500" Foreground="#FF403D3D" />
                             </StackPanel>
@@ -31,19 +48,16 @@
                     </ListView.HeaderTemplate>
                     <ListView.ItemTemplate>
                         <DataTemplate                          >
-                            <StackPanel x:ConnectionId='6' Orientation="Horizontal" >
-                                <TextBlock x:ConnectionId='7' Name="fechaTextBlock"
-                                                            
+                            <StackPanel x:ConnectionId='7' Orientation="Horizontal" >
+                                <TextBlock x:ConnectionId='8' Name="fechaTextBlock"
+                                                                                
                                        Width="150" TextWrapping="Wrap"/>
-                            <TextBlock x:ConnectionId='8' Name="contenidoTextBlock"
+                            <TextBlock x:ConnectionId='9' Name="contenidoTextBlock"
                                                                 
                                        Width="500" TextWrapping="Wrap"/>
-                            <TextBlock x:ConnectionId='9' Name="eventosTextBlock"
+                                <TextBlock x:ConnectionId='10' Name="eventosTextBlock"
                                                               
                                        Width="500" TextWrapping="Wrap"/>
-                            <TextBlock x:ConnectionId='10' Name="idTextBlock"
-                                                               
-                                       Width="0" TextWrapping="Wrap"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

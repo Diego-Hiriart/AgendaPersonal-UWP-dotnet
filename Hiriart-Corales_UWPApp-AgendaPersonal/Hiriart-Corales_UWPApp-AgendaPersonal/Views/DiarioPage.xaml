@@ -10,7 +10,24 @@
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <RelativePanel>
+            <CommandBar Name="diarioCommandBar" VerticalAlignment="Top">
+                <CommandBar.PrimaryCommands>
+                    <AppBarButton Name="nuevoBoton" Label="Nuevo" Icon="Add" Click="NuevoBoton_Click"/>
+                    <AppBarSeparator/>
+                    <AppBarButton Name="editarBoton" Label="Editar"  Icon="Edit"  Width="Auto" Click="EditarBoton_Click"/>
+                    <AppBarSeparator/>
+                    <AppBarButton Name="eliminarBoton" Label="Eliminar"  Icon="Delete"  Width="Auto" Click="EliminarBoton_Click"/>
+                    <AppBarSeparator/>
+                </CommandBar.PrimaryCommands>
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton Name="ayudaBoton" Label="Ayuda" Click="AyudaBoton_Click"/>
+                    <AppBarButton Name="actualizarBoton" Label="Actualizar datos" Click="ActualizarBoton_Click"/>
+                </CommandBar.SecondaryCommands>
+                <CommandBar.Content>
+                    <TextBlock Text="Pantalla principal de Diarios"/>
+                </CommandBar.Content>
+            </CommandBar>
+            <RelativePanel Margin="0,20,0,0">
                 <ListView Name="DiariosList"
                   SelectionMode="Single"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -23,7 +40,7 @@
                     <ListView.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"  >
-                                <TextBlock Text="Fecha" Margin="8,0" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Fecha (dd/mm/aa)" Margin="8,0" Width="150" Foreground="#FF403D3D" />
                                 <TextBlock Text="Contenido" Width="500" Foreground="#FF403D3D" />
                                 <TextBlock Text="Eventos relacionados" Width="500" Foreground="#FF403D3D" />
                             </StackPanel>
@@ -33,17 +50,14 @@
                         <DataTemplate x:DataType="local:Diario">
                             <StackPanel Orientation="Horizontal" >
                                 <TextBlock Name="fechaTextBlock"
-                                       Text="{x:Bind Fecha}"
+                                       Text="{x:Bind Fecha.ToShortDateString()}"
                                        Width="150" TextWrapping="Wrap"/>
                             <TextBlock Name="contenidoTextBlock"
                                        Text="{x:Bind Contenido}"
                                        Width="500" TextWrapping="Wrap"/>
-                            <TextBlock Name="eventosTextBlock"
+                                <TextBlock Name="eventosTextBlock"
                                        Text="{x:Bind Eventos}"
                                        Width="500" TextWrapping="Wrap"/>
-                            <TextBlock Name="idTextBlock"
-                                       Text="{x:Bind DiarioID}"
-                                       Width="0" TextWrapping="Wrap"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

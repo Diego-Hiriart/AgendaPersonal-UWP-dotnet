@@ -16,8 +16,8 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Core.Models
         public bool EsSerie { get; set; }
         public string Dias { get; set; }
 
-        public List<Nullable<int>> ContactoID { get; set; }
-        public Nullable<int> NotificacionID { get; set; }
-        public Nullable<int> MemoID { get; set; }
+        public string Contactos { get; set; }
+        public string Notificaciones { get; set; }
+        public string Memo { get; set; }
     }
 }
