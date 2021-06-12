@@ -65,9 +65,6 @@
                                 <TextBlock Name="contactosTextBlock"
                                        Text="{x:Bind Contactos}"
                                        Width="150" TextWrapping="Wrap"/>
-                                <TextBlock Name="idTextBlock"
-                                       Text="{x:Bind EventoID}"
-                                       Width="0" TextWrapping="Wrap"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

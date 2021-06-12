@@ -41,9 +41,6 @@
                                 <TextBlock Name="eventoTextBlock"
                                        Text="{x:Bind Evento}"
                                        Width="150" TextWrapping="Wrap"/>
-                                <TextBlock Name="idTextBlock"
-                                       Text="{x:Bind NotificacionID}"
-                                       Width="0" TextWrapping="Wrap"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

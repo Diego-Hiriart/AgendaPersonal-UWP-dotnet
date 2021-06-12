@@ -10,8 +10,25 @@
     <Grid x:ConnectionId='2' x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <RelativePanel>
-                <ListView x:ConnectionId='3' Name="ArtistasList"
+            <CommandBar x:ConnectionId='3' Name="contactoCommandBar" VerticalAlignment="Top">
+                <CommandBar.PrimaryCommands>
+                    <AppBarButton x:ConnectionId='10' Name="nuevoBoton" Label="Nuevo" Icon="Add"                         />
+                    <AppBarSeparator/>
+                    <AppBarButton x:ConnectionId='11' Name="editarBoton" Label="Editar"  Icon="Edit"  Width="Auto"                          />
+                    <AppBarSeparator/>
+                    <AppBarButton x:ConnectionId='12' Name="eliminarBoton" Label="Eliminar"  Icon="Delete"  Width="Auto"                            />
+                    <AppBarSeparator/>
+                </CommandBar.PrimaryCommands>
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton x:ConnectionId='13' Name="ayudaBoton" Label="Ayuda"                         />
+                    <AppBarButton x:ConnectionId='14' Name="actualizarBoton" Label="Actualizar datos"                              />
+                </CommandBar.SecondaryCommands>
+                <CommandBar.Content>
+                    <TextBlock Text="Pantalla principal de Memos"/>
+                </CommandBar.Content>
+            </CommandBar>
+            <RelativePanel Margin="0,20,0,0">
+                <ListView x:ConnectionId='4' Name="MemosList"
                   SelectionMode="Single"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.IsVerticalRailEnabled="True"
@@ -23,23 +40,20 @@
                     <ListView.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"  >
-                                <TextBlock Text="Contenido" Margin="8,0" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Evento" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Contenido" Margin="8,0" Width="500" Foreground="#FF403D3D" />
+                                <TextBlock Text="Evento" Width="200" Foreground="#FF403D3D" />
                             </StackPanel>
                         </DataTemplate>
                     </ListView.HeaderTemplate>
                     <ListView.ItemTemplate>
                         <DataTemplate                        >
-                            <StackPanel x:ConnectionId='6' Orientation="Horizontal" >
-                                <TextBlock x:ConnectionId='7' Name="contenidoTextBlock"
+                            <StackPanel x:ConnectionId='7' Orientation="Horizontal" >
+                                <TextBlock x:ConnectionId='8' Name="contenidoTextBlock"
                                                                 
                                        Width="150" TextWrapping="Wrap"/>
-                                <TextBlock x:ConnectionId='8' Name="eventoTextBlock"
+                                <TextBlock x:ConnectionId='9' Name="eventoTextBlock"
                                                              
                                        Width="150" TextWrapping="Wrap"/>
-                                <TextBlock x:ConnectionId='9' Name="idTextBlock"
-                                                             
-                                       Width="0" TextWrapping="Wrap"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

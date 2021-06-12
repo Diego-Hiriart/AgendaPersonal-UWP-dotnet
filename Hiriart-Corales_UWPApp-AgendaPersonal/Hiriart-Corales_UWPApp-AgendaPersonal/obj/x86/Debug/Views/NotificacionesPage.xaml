@@ -41,9 +41,6 @@
                                 <TextBlock x:ConnectionId='9' Name="eventoTextBlock"
                                                              
                                        Width="150" TextWrapping="Wrap"/>
-                                <TextBlock x:ConnectionId='10' Name="idTextBlock"
-                                                                     
-                                       Width="0" TextWrapping="Wrap"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

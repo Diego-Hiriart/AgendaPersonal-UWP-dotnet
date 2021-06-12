@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2021-06-12T02:11:38.993</Modified>
+      <Modified>2021-06-12T03:01:13.230</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Hiriart_Corales_UWPApp_AgendaPersonal.exe">
       <PackagePath>entrypoint\Hiriart_Corales_UWPApp_AgendaPersonal.exe</PackagePath>
-      <Modified>2021-06-12T02:11:38.249</Modified>
+      <Modified>2021-06-12T03:01:12.508</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\diego\.nuget\packages\microsoft.bcl.asyncinterfaces\5.0.0\lib\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.dll">
       <PackagePath>Microsoft.Bcl.AsyncInterfaces.dll</PackagePath>
@@ -64,7 +64,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal.Core\bin\Debug\netstandard2.0\Hiriart-Corales_UWPApp-AgendaPersonal.Core.dll">
       <PackagePath>Hiriart-Corales_UWPApp-AgendaPersonal.Core.dll</PackagePath>
-      <Modified>2021-06-12T00:51:20.880</Modified>
+      <Modified>2021-06-12T03:00:20.192</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.19041.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
@@ -110,71 +110,71 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Hiriart_Corales_UWPApp_AgendaPersonal.xr.xml">
       <PackagePath>Hiriart_Corales_UWPApp_AgendaPersonal.xr.xml</PackagePath>
-      <Modified>2021-06-12T02:06:26.569</Modified>
+      <Modified>2021-06-12T02:29:41.593</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.157</Modified>
+      <Modified>2021-06-12T03:01:12.413</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Styles\Page.xbf">
       <PackagePath>Styles\Page.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.156</Modified>
+      <Modified>2021-06-12T03:01:12.412</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Styles\_Colors.xbf">
       <PackagePath>Styles\_Colors.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.156</Modified>
+      <Modified>2021-06-12T03:01:12.412</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Styles\_FontSizes.xbf">
       <PackagePath>Styles\_FontSizes.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.156</Modified>
+      <Modified>2021-06-12T03:01:12.412</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Styles\_Thickness.xbf">
       <PackagePath>Styles\_Thickness.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.157</Modified>
+      <Modified>2021-06-12T03:01:12.412</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Styles\TextBlock.xbf">
       <PackagePath>Styles\TextBlock.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.157</Modified>
+      <Modified>2021-06-12T03:01:12.413</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Views\EditarDiario.xbf">
       <PackagePath>Views\EditarDiario.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.157</Modified>
+      <Modified>2021-06-12T03:01:12.413</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Views\EditarContactopage.xbf">
       <PackagePath>Views\EditarContactopage.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.157</Modified>
+      <Modified>2021-06-12T03:01:12.413</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Views\NuevoContactoPage.xbf">
       <PackagePath>Views\NuevoContactoPage.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.157</Modified>
+      <Modified>2021-06-12T03:01:12.413</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Views\NuevoDiarioPage.xbf">
       <PackagePath>Views\NuevoDiarioPage.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.158</Modified>
+      <Modified>2021-06-12T03:01:12.413</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Views\ContactosPage.xbf">
       <PackagePath>Views\ContactosPage.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.158</Modified>
+      <Modified>2021-06-12T03:01:12.413</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Views\DiarioPage.xbf">
       <PackagePath>Views\DiarioPage.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.158</Modified>
+      <Modified>2021-06-12T03:01:12.414</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Views\EventosPage.xbf">
       <PackagePath>Views\EventosPage.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.158</Modified>
+      <Modified>2021-06-12T03:01:12.414</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Views\MemosPage.xbf">
       <PackagePath>Views\MemosPage.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.158</Modified>
+      <Modified>2021-06-12T03:01:12.414</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Views\NotificacionesPage.xbf">
       <PackagePath>Views\NotificacionesPage.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.158</Modified>
+      <Modified>2021-06-12T03:01:12.414</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Views\ShellPage.xbf">
       <PackagePath>Views\ShellPage.xbf</PackagePath>
-      <Modified>2021-06-12T02:11:38.158</Modified>
+      <Modified>2021-06-12T03:01:12.414</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.19041.0\\redist\Debug\x86\ucrtbased.dll">
       <PackagePath>ucrtbased.dll</PackagePath>
@@ -190,11 +190,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2021-06-12T01:10:31.214</Modified>
+      <Modified>2021-06-12T02:43:08.576</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Core\Hiriart_Corales_UWPApp_AgendaPersonal.exe">
       <PackagePath>Hiriart_Corales_UWPApp_AgendaPersonal.exe</PackagePath>
-      <Modified>2021-06-12T02:11:38.989</Modified>
+      <Modified>2021-06-12T03:01:13.226</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

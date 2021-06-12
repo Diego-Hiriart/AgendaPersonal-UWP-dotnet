@@ -18,7 +18,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
         //El siguiente metodo es static para poder llamarlo sin instanciar, también se le prodía colocar en una librería de funciones para SQL
         public static ObservableCollection<Contacto> ReadContactos(string connectionString)//Metodo para recuperar datos
         {
-            const string GetAtistasQuery = "select ContactoID, Nombre, Apellido, Telefono, Email, Organizacion, " +//Definicion de lo que queremos de Contacto
+            const string GetContactosQuery = "select ContactoID, Nombre, Apellido, Telefono, Email, Organizacion, " +//Definicion de lo que queremos de Contacto
                 "FechaNacimiento, InformacionAdicional from Contactoes";
 
             var contactos = new ObservableCollection<Contacto>();//Coleccion de contactos para almacenar las entradas de la tabla
@@ -31,7 +31,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                     {
                         using (SqlCommand cmd = conn.CreateCommand())
                         {
-                            cmd.CommandText = GetAtistasQuery;
+                            cmd.CommandText = GetContactosQuery;
                             using (SqlDataReader reader = cmd.ExecuteReader())
                             {
                                 while (reader.Read())
@@ -93,7 +93,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
 
                             //Crear nueva entrada en ListaContactoes
                             const string entradaLista = "insert into ListaContactoes(IDEvento, NombreApellido) " +
-                                "values (NULL, @nombreApellido)";
+                                "values(NULL, @nombreApellido)";
                             cmd.CommandText = entradaLista;
                             string nombreAp = nombre + " " + apellido;
                             cmd.Parameters.AddWithValue("@nombreApellido", nombreAp);
@@ -179,6 +179,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                             string nombreAp = nombre + " " + apellido;
                             consola.Parameters.AddWithValue("@nombreApellido", nombreAp);
                             consola.Parameters.AddWithValue("@idLista", ContactoID);
+                            consola.ExecuteNonQuery();
                         }
                     }
                 }

@@ -65,9 +65,6 @@
                                 <TextBlock x:ConnectionId='15' Name="contactosTextBlock"
                                                                 
                                        Width="150" TextWrapping="Wrap"/>
-                                <TextBlock x:ConnectionId='16' Name="idTextBlock"
-                                                               
-                                       Width="0" TextWrapping="Wrap"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
