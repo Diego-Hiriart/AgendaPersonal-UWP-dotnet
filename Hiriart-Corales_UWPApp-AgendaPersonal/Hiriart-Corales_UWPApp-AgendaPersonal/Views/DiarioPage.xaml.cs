@@ -10,7 +10,6 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
 {
     public sealed partial class DiarioPage : Page
     {
-        public DiarioViewModel ViewModel { get; } = new DiarioViewModel();
 
         public DiarioPage()
         {
@@ -66,7 +65,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
         {
             //Abre ventana que explica como usar la barra de comandos
             var ayuda = new MessageDialog("De clic en el boton de + para añadir una entrada nueva, el ícono \n" +
-                "del lapiz le permite editar la entrada que tenda seleccionada, el ícono \n" +
+                "del lapiz le permite editar la entrada que tenga seleccionada, el ícono \n" +
                 "del basurero borra la entrada seleccionada, y el boton Actualizar recarga la página");
             ayuda.Title = "Información";
             await ayuda.ShowAsync();

@@ -60,6 +60,9 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
                     (DateTimeOffset)this.fechaCalendarDatePicker.Date, this.contenidoTextBox.Text, ids);
                 if (exito)//Quita los datos que se escribieron apra hacer mas entradas
                 {
+                    var errorBase = new MessageDialog("Entrada de diario guardada con éxito");
+                    errorBase.Title = "Información";
+                    await errorBase.ShowAsync();
                     this.Eventos.Clear();
                     this.fechaCalendarDatePicker.Date = null;
                     this.contenidoTextBox.Text = "";

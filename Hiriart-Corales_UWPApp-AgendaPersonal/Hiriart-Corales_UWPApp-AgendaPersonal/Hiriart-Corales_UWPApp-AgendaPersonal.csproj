@@ -149,6 +149,12 @@
     <Compile Include="Views\EditarDiario.xaml.cs">
       <DependentUpon>EditarDiario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditarContactopage.xaml.cs">
+      <DependentUpon>EditarContactopage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NuevoContactoPage.xaml.cs">
+      <DependentUpon>NuevoContactoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NuevoDiarioPage.xaml.cs">
       <DependentUpon>NuevoDiarioPage.xaml</DependentUpon>
     </Compile>
@@ -199,6 +205,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EditarDiario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EditarContactopage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NuevoContactoPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -35,8 +35,8 @@
       <RootProperty Name="Margin" />
       <RootProperty Name="Text" />
       <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="Inlines" />
       <RootProperty Name="Width" />
+      <RootProperty Name="Inlines" />
       <RootProperty Name="Foreground" />
       <RootProperty Name="Name" />
       <RootProperty Name="Style" />
@@ -65,6 +65,7 @@
       <RootProperty Name="Margin" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Width" />
+      <RootProperty Name="Name" />
       <RootEvent Name="DateChanged" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
@@ -91,6 +92,9 @@
       <RootProperty Name="ItemTemplate" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
+      <RootProperty Name="Width" />
+      <RootProperty Name="VerticalScrollBarVisibility" />
+      <RootProperty Name="Content" />
       <RootMethod Name="GetVerticalScrollBarVisibility" />
       <RootMethod Name="SetVerticalScrollBarVisibility" />
       <RootMethod Name="GetIsVerticalRailEnabled" />
@@ -110,9 +114,6 @@
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
       <RootProperty Name="Template" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Documents.Run">
-      <RootProperty Name="Text" />
-    </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarButton">
       <RootProperty Name="Name" />
       <RootProperty Name="Label" />
@@ -121,6 +122,16 @@
       <RootEvent Name="Click" />
     </RootType>
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.EditarDiarioPage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
+      <RootProperty Name="Height" />
+      <RootProperty Name="Orientation" />
+      <RootProperty Name="Children" />
+    </RootType>
+    <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.EditarContactoPage" />
+    <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.NuevoContactoPage" />
+    <RootType FullName="Windows.UI.Xaml.Documents.Run">
+      <RootProperty Name="Text" />
+    </RootType>
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.NuevoDiarioPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.ListView">
       <RootProperty Name="Name" />
@@ -129,12 +140,8 @@
       <RootProperty Name="HeaderTemplate" />
       <RootProperty Name="ItemTemplate" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
-      <RootProperty Name="Orientation" />
-      <RootProperty Name="Children" />
-    </RootType>
-    <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.ContactosPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarSeparator" />
+    <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.ContactosPage" />
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.DiarioPage" />
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.EventosPage" />
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.MemosPage" />

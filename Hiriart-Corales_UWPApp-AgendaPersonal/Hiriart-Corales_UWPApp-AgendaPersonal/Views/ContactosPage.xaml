@@ -10,7 +10,24 @@
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <RelativePanel>
+            <CommandBar Name="contactoCommandBar" VerticalAlignment="Top">
+                <CommandBar.PrimaryCommands>
+                    <AppBarButton Name="nuevoBoton" Label="Nuevo" Icon="Add" Click="NuevoBoton_Click"/>
+                    <AppBarSeparator/>
+                    <AppBarButton Name="editarBoton" Label="Editar"  Icon="Edit"  Width="Auto" Click="EditarBoton_Click"/>
+                    <AppBarSeparator/>
+                    <AppBarButton Name="eliminarBoton" Label="Eliminar"  Icon="Delete"  Width="Auto" Click="EliminarBoton_Click"/>
+                    <AppBarSeparator/>
+                </CommandBar.PrimaryCommands>
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton Name="ayudaBoton" Label="Ayuda" Click="AyudaBoton_Click"/>
+                    <AppBarButton Name="actualizarBoton" Label="Actualizar datos" Click="ActualizarBoton_Click"/>
+                </CommandBar.SecondaryCommands>
+                <CommandBar.Content>
+                    <TextBlock Text="Pantalla principal de Contactos"/>
+                </CommandBar.Content>
+            </CommandBar>
+            <RelativePanel Margin="0,20,0,0">
                 <ListView Name="ContactosList"
                   SelectionMode="Single"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -52,14 +69,11 @@
                                        Text="{x:Bind Organizacion}"
                                        Width="150" TextWrapping="Wrap"/>
                                 <TextBlock Name="fechaNacimientoTextBlock"
-                                       Text="{x:Bind FechaNacimiento}"
+                                       Text="{x:Bind FechaNacimiento.ToShortDateString()}"
                                        Width="150" TextWrapping="Wrap"/>
                                 <TextBlock Name="infoAdicionalTextBlock"
                                        Text="{x:Bind InformacionAdicional}"
                                        Width="150" TextWrapping="Wrap"/>
-                                <TextBlock Name="idTextBlock"
-                                       Text="{x:Bind ContactoID}"
-                                       Width="0" TextWrapping="Wrap"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

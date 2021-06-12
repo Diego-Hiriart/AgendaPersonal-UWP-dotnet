@@ -25,7 +25,7 @@
             <RelativePanel Margin="0,20,0,0">
                 <TextBlock HorizontalAlignment="Left" Margin="91,119,0,0" Text="Fecha" TextWrapping="Wrap" VerticalAlignment="Top"/>
                 <CalendarDatePicker x:ConnectionId='4' x:Name="fechaCalendarDatePicker" Margin="91,143,0,0" VerticalAlignment="Top" Width="454"                                                  />
-                <TextBlock HorizontalAlignment="Left" Margin="91,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" ><Run Text="C"/><Run Text="o"/><Run Text="ntenido"/></TextBlock>
+                <TextBlock Text="Contenido" HorizontalAlignment="Left" Margin="91,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
                 <TextBox x:ConnectionId='5' x:Name="contenidoTextBox" HorizontalAlignment="Left" Margin="91,224,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="454" Height="400"/>
                 <TextBlock HorizontalAlignment="Left" Margin="769,119,0,0" Text="Eventos relacionados" TextWrapping="Wrap" VerticalAlignment="Top"/>
                 <!--ListBox para mostar los eventos de la fecha-->

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace Hiriart_Corales_UWPApp_AgendaPersonal.Core.Models
 {
-    public class Evento
+    public class Evento : INotifyPropertyChanged
     {             
         public int EventoID { get; set; }
         public DateTime Fecha { get; set; }
@@ -19,5 +20,11 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Core.Models
         public string Contactos { get; set; }
         public string Notificaciones { get; set; }
         public string Memo { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

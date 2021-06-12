@@ -199,6 +199,40 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                             consola.Parameters.AddWithValue("@id", DiarioID);
                             consola.ExecuteNonQuery();
 
+                            //Se quitan los eventos que se hayan desasociado en esta entrada, primero se leen los actuales
+                            List<int> eventosQuitados = new List<int>();//Lista para guardar los ids de elementos a quitar
+                            const string eventosActuales = "select ListaEventoID from ListaEventoes where IDDiario=@IDeste";//Buscar eventos ya asociados
+                            consola.CommandText = eventosActuales;
+                            consola.Parameters.AddWithValue("@IDeste", DiarioID);
+                            using (SqlDataReader lector = consola.ExecuteReader())
+                            {
+                                while (lector.Read())
+                                {
+                                    //Primero se aniaden todos los que estan asociados, luego se filtran los que si se quedan
+                                    eventosQuitados.Add(lector.GetInt32(0));
+                                }
+                            }
+
+                            //Dejar en eventosQuitados solo los que ya no se seleccionaron en la interfaz
+                            foreach (int id in eventos)
+                            {
+                                //Si se tiene en los ya asociados uno de los seleccionados en View, se borra de la lista de Quitados porque aun debe estar asociado
+                                if (eventosQuitados.Contains(id))
+                                {
+                                    eventosQuitados.Remove(id);
+                                }
+                            }
+
+                            //Ahora si, se quitan los que ya no esten asociados
+                            foreach (int id in eventosQuitados)
+                            {
+                                const string editarAsociacion = "update ListaEventoes set IDDiario=NULL where ListaEventoID=@eventoQuitado";//Se desasocia con null
+                                consola.CommandText = editarAsociacion;                               
+                                consola.Parameters.AddWithValue("@eventoQuitado", id);
+                                consola.ExecuteNonQuery();
+                            }
+
+                            //Se aniaden los nuevos eventos que se hayan asociado con esta entrada de diario
                             foreach (int id in eventos)
                             {
                                 const string editarAsociacion = "update ListaEventoes set IDDiario=@ID where ListaEventoID=@evento";
@@ -221,10 +255,11 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
 
         public static ObservableCollection<Evento> EventosVinculados(string connectionString, int DiarioID)
         {
-            const string GetDiariosQuery = "select Eventoes.EventoID, Eventoes.Fecha, Eventoes.Inicio, Eventoes.Fin, " +//Definicion de lo que queremos de Evento
-                "Eventoes.Titulo, Eventoes.Descripcion, Eventoes.Ubicacion, Eventoes.EsSerie, Eventoes.Dias, ListaContactoes.NombreApellido from Eventoes " +
-                "inner join ListaEventoes on ListaEventoes.IDDiario=Diarios.DiarioID";
+            const string GetEventosQuery = "select Eventoes.EventoID, Eventoes.Fecha, Eventoes.Inicio, Eventoes.Fin, " +//Definicion de lo que queremos de Evento
+                "Eventoes.Titulo, Eventoes.Descripcion, Eventoes.Ubicacion, Eventoes.EsSerie, Eventoes.Dias from Eventoes " +
+                "inner join ListaEventoes on ListaEventoes.IDDiario = @ID and ListaEventoes.ListaEventoID=Eventoes.EventoID";
             //inner join es parecido a left join, pero coge solo los que tienen relacion con la otra tabla
+            //Sacamos todo de un evento, solo si al buscar ese evento en ListaEventoes (despues del and) la entrada en tal tabla tiene un IDDiario igual al que se eta editando
 
             var eventos = new ObservableCollection<Evento>();//Coleccion de evento para almacenar las entradas de la tabla
             try
@@ -238,7 +273,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                         {
 
                             cmd.Parameters.AddWithValue("@ID", DiarioID);
-                            cmd.CommandText = GetDiariosQuery;
+                            cmd.CommandText = GetEventosQuery;
                             using (SqlDataReader reader = cmd.ExecuteReader())
                             {
                                 while (reader.Read())
@@ -253,23 +288,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                     evento.Descripcion = reader[5] as string;
                                     evento.Ubicacion = reader[6] as string;
                                     evento.EsSerie = reader.GetBoolean(7);
-                                    evento.Dias = reader[8] as string;
-
-                                    // Ahora se obtienen los contactos asociados
-                                    string nombres = "";
-                                    //Lista para guardar los nombres de los contactos, instanciado para no tener problemas de null al asignar
-
-                                    if (nombres.Equals(""))//Si no hay nada pone el primero sin ningun formato
-                                    {
-                                        nombres = reader[9] as string;
-                                    }
-                                    else//Si ya habia algo, pone una coma y luego el otro
-                                    {
-                                        nombres += ", " + reader[9] as string;
-                                    }
-                                    //Se hace lo mismo que antes en este reader, para problemas de null
-
-                                    evento.Contactos = nombres;
+                                    evento.Dias = reader[8] as string;                                 
 
                                     eventos.Add(evento);//Aniade el evento que se creo antes a la coleccion
                                 }

@@ -106,6 +106,12 @@
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Views\EditarDiario.xbf">
       <PackagePath>Views\EditarDiario.xbf</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Views\EditarContactopage.xbf">
+      <PackagePath>Views\EditarContactopage.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Views\NuevoContactoPage.xbf">
+      <PackagePath>Views\NuevoContactoPage.xbf</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal\bin\x86\Debug\Views\NuevoDiarioPage.xbf">
       <PackagePath>Views\NuevoDiarioPage.xbf</PackagePath>
     </AppxPackagedFile>

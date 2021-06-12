@@ -16,7 +16,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
 
         public static ObservableCollection<Evento> ReadEventos(string connectionString)//Metodo para recuperar datos
         {
-            const string GetDiariosQuery = "select Eventoes.EventoID, Eventoes.Fecha, Eventoes.Inicio, Eventoes.Fin, " +//Definicion de lo que queremos de Evento
+            const string GetEventosQuery = "select Eventoes.EventoID, Eventoes.Fecha, Eventoes.Inicio, Eventoes.Fin, " +//Definicion de lo que queremos de Evento
                 "Eventoes.Titulo, Eventoes.Descripcion, Eventoes.Ubicacion, Eventoes.EsSerie, Eventoes.Dias, ListaContactoes.NombreApellido from Eventoes " +
                 "left join ListaContactoes on ListaContactoes.IDEvento=Eventoes.EventoID";
 
@@ -31,7 +31,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                         using (SqlCommand cmd = conn.CreateCommand())
                         {
                             
-                            cmd.CommandText = GetDiariosQuery;
+                            cmd.CommandText = GetEventosQuery;
                             using (SqlDataReader reader = cmd.ExecuteReader())
                             {
                                 while (reader.Read())

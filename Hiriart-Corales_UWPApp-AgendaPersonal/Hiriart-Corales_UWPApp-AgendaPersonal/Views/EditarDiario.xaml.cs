@@ -40,12 +40,14 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
                 this.fechaCalendarDatePicker.Date = seleccionadoDiarioPage.Fecha;
                 this.contenidoTextBox.Text = seleccionadoDiarioPage.Contenido;
                 this.Eventos = DiarioViewModel.EventosVinculados((App.Current as App).ConnectionString, seleccionadoDiarioPage.DiarioID);
+                this.eventosListBox.SelectAll();              
             }
             else//Volver a la pantalla principal si es null, quiere decir que no se selecciono nada
             {
                 this.Frame.Navigate(typeof(DiarioPage));
             }
         }
+
         public EditarDiarioPage()
         {
             this.InitializeComponent();
