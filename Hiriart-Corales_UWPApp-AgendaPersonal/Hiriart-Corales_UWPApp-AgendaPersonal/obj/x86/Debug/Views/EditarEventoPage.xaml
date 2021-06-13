@@ -19,7 +19,7 @@
                     <AppBarButton x:ConnectionId='25' Name="ayudaBoton" Label="Ayuda"                         />
                 </CommandBar.SecondaryCommands>
                 <CommandBar.Content>
-                    <TextBlock Text="Nuevo Contacto"/>
+                    <TextBlock Text="Editar Evento"/>
                 </CommandBar.Content>
             </CommandBar>
             <RelativePanel Margin="0,20,0,0">

@@ -21,7 +21,7 @@
                     <AppBarButton x:ConnectionId='11' Name="ayudaBoton" Label="Ayuda"                         />
                 </CommandBar.SecondaryCommands>
                 <CommandBar.Content>
-                    <TextBlock Text="Editar Notificacion"/>
+                    <TextBlock Text="Editar Memo"/>
                 </CommandBar.Content>
             </CommandBar>
             <RelativePanel Margin="0,20,0,0">
