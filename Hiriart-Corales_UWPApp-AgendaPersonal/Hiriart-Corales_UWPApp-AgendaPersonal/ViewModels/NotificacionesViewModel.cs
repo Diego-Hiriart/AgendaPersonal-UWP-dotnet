@@ -17,7 +17,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
 
         public static ObservableCollection<Notificacion> ReadNotificaciones(string connectionString)//Metodo para recuperar datos
         {
-            const string getNotifacionesQuery = "select Notifacions.NotificacionID, Notificacions.Titulo, Notificacions.Hora, Eventoes.Titulo from Notificacions " +
+            const string getNotifacionesQuery = "select Notificacions.NotificacionID, Notificacions.Titulo, Notificacions.Hora, Eventoes.Titulo from Notificacions " +
                 "left join Eventoes on Eventoes.NotificacionID=Notificacions.NotificacionID";//Definicion de lo que queremos de Notificacion
 
             var notificaciones = new ObservableCollection<Notificacion>();//Coleccion de notificacion para almacenar las entradas de la tabla
@@ -56,9 +56,10 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
             return null;
         }
 
-        public static bool CreateNotificacion(string connectionString, string titulo, DateTimeOffset tiempo, int evento)
+        public static bool CreateNotificacion(string connectionString, string titulo, TimeSpan tiempo, DateTimeOffset fecha, int evento)
         {
-            DateTime horaNotif = tiempo.Date;
+            DateTime horaNotif = (DateTime)(fecha.Date + tiempo);
+
             try
             {
                 const string crearNotificacion = "insert into Notificacions(Titulo, Hora) values(@titulo, @hora)";
@@ -74,32 +75,35 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                             cmd.Parameters.AddWithValue("@hora", horaNotif);
                             cmd.ExecuteNonQuery();
 
-                            //Id de ultimo memo
-                            List<int> notifIDs = new List<int>();//Para guardar memos leidos
-                            const string memos = "select NotificacionID from Notificacions";
-                            cmd.CommandText = memos;
-                            using (SqlDataReader lector = cmd.ExecuteReader())
+                            if (evento != 0)//Solo vincular si se selecciono algo
                             {
-                                while (lector.Read())
+                                //Id de ultimo memo
+                                List<int> notifIDs = new List<int>();//Para guardar memos leidos
+                                const string memos = "select NotificacionID from Notificacions";
+                                cmd.CommandText = memos;
+                                using (SqlDataReader lector = cmd.ExecuteReader())
                                 {
-                                    notifIDs.Add(lector.GetInt32(0));
+                                    while (lector.Read())
+                                    {
+                                        notifIDs.Add(lector.GetInt32(0));
+                                    }
                                 }
-                            }
-                            int ultimaNotif = 0;
-                            foreach (int id in notifIDs)
-                            {
-                                if (id > ultimaNotif)
+                                int ultimaNotif = 0;
+                                foreach (int id in notifIDs)
                                 {
-                                    ultimaNotif = id;
+                                    if (id > ultimaNotif)
+                                    {
+                                        ultimaNotif = id;
+                                    }
                                 }
-                            }
 
-                            //Cambiar Memo ID en Evento correcto
-                            const string asociaNotif = "update Eventoes set NotificacionID=@idNotif where EventoID=@idEvento";
-                            cmd.CommandText = asociaNotif;
-                            cmd.Parameters.AddWithValue("@idNotif", ultimaNotif);
-                            cmd.Parameters.AddWithValue("@idEvento", evento);
-                            cmd.ExecuteNonQuery();
+                                //Cambiar Memo ID en Evento correcto
+                                const string asociaNotif = "update Eventoes set NotificacionID=@idNotif where EventoID=@idEvento";
+                                cmd.CommandText = asociaNotif;
+                                cmd.Parameters.AddWithValue("@idNotif", ultimaNotif);
+                                cmd.Parameters.AddWithValue("@idEvento", evento);
+                                cmd.ExecuteNonQuery();
+                            }                          
                         }
                     }
                 }
@@ -144,10 +148,10 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
             }
         }
 
-        public static bool UpdateNotificacion(string connectionString, int notif, string titulo, DateTimeOffset tiempo, int evento)
+        public static bool UpdateNotificacion(string connectionString, int notif, string titulo, TimeSpan tiempo, DateTimeOffset fecha, int evento)
         {
             const string actualizar = "update Notificacions set Titulo=@titulo, Hora=@hora where NotificacionID=@id";
-            DateTime horaNotif = tiempo.Date;
+            DateTime horaNotif = (DateTime)(fecha.Date + tiempo);
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -163,12 +167,15 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                             consola.Parameters.AddWithValue("@id", notif);
                             consola.ExecuteNonQuery();
 
-                            //Cambiar Memo ID en Evento correcto
-                            const string asociaNotif = "update Eventoes set NotificacionID=@idNotif where EventoID=@idEvento";
-                            consola.CommandText = asociaNotif;
-                            consola.Parameters.AddWithValue("@idNotif", notif);
-                            consola.Parameters.AddWithValue("@idEvento", evento);
-                            consola.ExecuteNonQuery();
+                            if (evento!=0)
+                            {
+                                //Cambiar Memo ID en Evento correcto
+                                const string asociaNotif = "update Eventoes set NotificacionID=@idNotif where EventoID=@idEvento";
+                                consola.CommandText = asociaNotif;
+                                consola.Parameters.AddWithValue("@idNotif", notif);
+                                consola.Parameters.AddWithValue("@idEvento", evento);
+                                consola.ExecuteNonQuery();
+                            }                           
                         }
                     }
                 }
@@ -180,5 +187,58 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                 return false;
             }
         }
+
+        public static ObservableCollection<Evento> EventosRelacionados(string connectionString, DateTimeOffset date)//Metodo para recuperar datos
+        {
+            const string GetEventosQuery = "select EventoID, Fecha, Inicio, Fin, " +//Definicion de lo que queremos de Evento
+                "Titulo, Descripcion, Ubicacion, EsSerie, Dias from Eventoes " +
+                "where Fecha=@fechaEv";
+
+            DateTime fecha = (DateTime)date.Date;
+
+            var eventos = new ObservableCollection<Evento>();//Coleccion de evento para almacenar las entradas de la tabla
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    if (conn.State == ConnectionState.Open)
+                    {
+                        using (SqlCommand cmd = conn.CreateCommand())
+                        {
+
+                            cmd.CommandText = GetEventosQuery;
+                            cmd.Parameters.AddWithValue("@fechaEv", fecha);
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    var evento = new Evento();//Una instancia de evento para ir guardando y almacenando lo que se lea de la base
+                                    evento.EventoID = reader.GetInt32(0);//El parametro dentro de estos gets indica la posicion del atributo dentro de la tabla                                  
+                                    evento.Fecha = reader.GetDateTime(1);
+                                    evento.Inicio = reader.GetDateTime(2);
+                                    evento.Fin = reader.GetDateTime(3);
+                                    //se usa "reader[numeroColumna] as tipoDato" para evitar errores por null
+                                    evento.Titulo = reader[4] as string;
+                                    evento.Descripcion = reader[5] as string;
+                                    evento.Ubicacion = reader[6] as string;
+                                    evento.EsSerie = reader.GetBoolean(7);
+                                    evento.Dias = reader[8] as string;
+
+                                    eventos.Add(evento);//Aniade el evento que se creo antes a la coleccion
+                                }
+                            }
+                        }
+                    }
+                }
+                return eventos;
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+            }
+            return null;
+        }
+
     }
 }

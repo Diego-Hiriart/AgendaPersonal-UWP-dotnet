@@ -10,8 +10,25 @@
     <Grid x:ConnectionId='2' x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <CommandBar x:ConnectionId='3' Name="notificacionCommandBar" VerticalAlignment="Top">
+                <CommandBar.PrimaryCommands>
+                    <AppBarButton x:ConnectionId='11' Name="nuevoBoton" Label="Nuevo" Icon="Add"                         />
+                    <AppBarSeparator/>
+                    <AppBarButton x:ConnectionId='12' Name="editarBoton" Label="Editar"  Icon="Edit"  Width="Auto"                          />
+                    <AppBarSeparator/>
+                    <AppBarButton x:ConnectionId='13' Name="eliminarBoton" Label="Eliminar"  Icon="Delete"  Width="Auto"                            />
+                    <AppBarSeparator/>
+                </CommandBar.PrimaryCommands>
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton x:ConnectionId='14' Name="ayudaBoton" Label="Ayuda"                         />
+                    <AppBarButton x:ConnectionId='15' Name="actualizarBoton" Label="Actualizar datos"                              />
+                </CommandBar.SecondaryCommands>
+                <CommandBar.Content>
+                    <TextBlock Text="Pantalla principal de Notificaciones"/>
+                </CommandBar.Content>
+            </CommandBar>
             <RelativePanel>
-                <ListView x:ConnectionId='3' Name="ArtistasList"
+                <ListView x:ConnectionId='4' Name="NoticiacionList"
                   SelectionMode="Single"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.IsVerticalRailEnabled="True"
@@ -24,21 +41,21 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"  >
                                 <TextBlock Text="Título" Margin="8,0" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Hora" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Fecha y Hora" Width="150" Foreground="#FF403D3D" />
                                 <TextBlock Text="Evento" Width="150" Foreground="#FF403D3D" />
                             </StackPanel>
                         </DataTemplate>
                     </ListView.HeaderTemplate>
                     <ListView.ItemTemplate>
                         <DataTemplate                                >
-                            <StackPanel x:ConnectionId='6' Orientation="Horizontal" >
-                                <TextBlock x:ConnectionId='7' Name="tituloTextBlock"
+                            <StackPanel x:ConnectionId='7' Orientation="Horizontal" >
+                                <TextBlock x:ConnectionId='8' Name="tituloTextBlock"
                                                              
                                        Width="150" TextWrapping="Wrap"/>
-                                <TextBlock x:ConnectionId='8' Name="horaTextBlock"
+                                <TextBlock x:ConnectionId='9' Name="horaTextBlock"
                                                            
                                        Width="150" TextWrapping="Wrap"/>
-                                <TextBlock x:ConnectionId='9' Name="eventoTextBlock"
+                                <TextBlock x:ConnectionId='10' Name="eventoTextBlock"
                                                              
                                        Width="150" TextWrapping="Wrap"/>
                             </StackPanel>

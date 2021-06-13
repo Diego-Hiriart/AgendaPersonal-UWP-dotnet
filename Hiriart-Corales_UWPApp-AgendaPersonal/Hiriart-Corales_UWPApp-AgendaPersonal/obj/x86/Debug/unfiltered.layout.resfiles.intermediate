@@ -17,9 +17,11 @@ Views\DiarioPage.xbf
 Views\EditarContactopage.xbf
 Views\EditarDiario.xbf
 Views\EditarEventoPage.xbf
+Views\EditarNotificacionPage.xbf
 Views\EventosPage.xbf
 Views\MemosPage.xbf
 Views\NotificacionesPage.xbf
+Views\NuevaNotificacionPage.xbf
 Views\NuevoContactoPage.xbf
 Views\NuevoDiarioPage.xbf
 Views\NuevoEventoPage.xbf

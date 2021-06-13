@@ -155,6 +155,12 @@
     <Compile Include="Views\EditarEventoPage.xaml.cs">
       <DependentUpon>EditarEventoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditarNotificacionPage.xaml.cs">
+      <DependentUpon>EditarNotificacionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NuevaNotificacionPage.xaml.cs">
+      <DependentUpon>NuevaNotificacionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NuevoEventoPage.xaml.cs">
       <DependentUpon>NuevoEventoPage.xaml</DependentUpon>
     </Compile>
@@ -219,6 +225,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EditarEventoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EditarNotificacionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NuevaNotificacionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

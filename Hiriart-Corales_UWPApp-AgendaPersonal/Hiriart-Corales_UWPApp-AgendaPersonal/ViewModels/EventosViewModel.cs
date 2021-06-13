@@ -18,8 +18,8 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
         public static ObservableCollection<Evento> ReadEventos(string connectionString)//Metodo para recuperar datos
         {
             const string GetEventosQuery = "select Eventoes.EventoID, Eventoes.Fecha, Eventoes.Inicio, Eventoes.Fin, " +//Definicion de lo que queremos de Evento
-                "Eventoes.Titulo, Eventoes.Descripcion, Eventoes.Ubicacion, Eventoes.EsSerie, Eventoes.Dias, ListaContactoes.NombreApellido from Eventoes " +
-                "left join ListaContactoes on ListaContactoes.IDEvento=Eventoes.EventoID";
+                "Eventoes.Titulo, Eventoes.Descripcion, Eventoes.Ubicacion, Eventoes.EsSerie, Eventoes.Dias, Eventoes.NotificacionID, " +
+                "Eventoes.MemoID, ListaContactoes.NombreApellido from Eventoes left join ListaContactoes on ListaContactoes.IDEvento=Eventoes.EventoID";
 
             var eventos = new ObservableCollection<Evento>();//Coleccion de evento para almacenar las entradas de la tabla
             try
@@ -48,6 +48,8 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                     evento.Ubicacion = reader[6] as string;
                                     evento.EsSerie = reader.GetBoolean(7);
                                     evento.Dias = reader[8] as string;
+                                    evento.NotificacionID = reader[9]==DBNull.Value?0:reader.GetInt32(9);//0 si es null para no leer nada en view, no hace falta
+                                    evento.MemoID = reader[10] == DBNull.Value ? 0 : reader.GetInt32(10);
 
                                     // Ahora se obtienen los contactos asociados
                                     string nombres = "";
@@ -55,11 +57,11 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                                                                           
                                     if (nombres.Equals(""))//Si no hay nada pone el primero sin ningun formato
                                     {
-                                        nombres = reader[9] as string;
+                                        nombres = reader[11] as string;
                                     }
                                     else//Si ya habia algo, pone una coma y luego el otro
                                     {
-                                        nombres += ", " + reader[9] as string;
+                                        nombres += ", " + reader[11] as string;
                                     }
                                     //Se hace lo mismo que antes en este reader, para problemas de null
                                         
@@ -138,7 +140,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                 //Asociar cada contacto de la lista con la entrada de evento
                                 foreach (int id in contactos)
                                 {
-                                    const string editarAsociacion = "update ListaContactoes set IDEvento=@ultima where ListaContacoID=@contacto";
+                                    const string editarAsociacion = "update ListaContactoes set IDEvento=@ultima where ListaContactoID=@contacto";
                                     cmd.CommandText = editarAsociacion;
                                     cmd.Parameters.AddWithValue("@ultima", ultimaEntrada);
                                     cmd.Parameters.AddWithValue("@contacto", id);
@@ -218,8 +220,22 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                         using (SqlCommand consola = conexion.CreateCommand())
                         {
                             consola.CommandText = editarEvento;
-                            consola.Parameters.AddWithValue("@notif", notif);
-                            consola.Parameters.AddWithValue("@memo", memo);
+                            if (notif!=0)
+                            {
+                                consola.Parameters.AddWithValue("@notif", notif);
+                            }
+                            else//Si no se paso nada hay que hacerlo null sino hay error de la base
+                            {
+                                consola.Parameters.AddWithValue("@notif", DBNull.Value);
+                            }                         
+                            if (memo!=0)
+                            {
+                                consola.Parameters.AddWithValue("@memo", memo);
+                            }
+                            else//Si no se paso nada hay que hacerlo null sino hay error de la base
+                            {
+                                consola.Parameters.AddWithValue("@memo", DBNull.Value);                              
+                            }                           
                             consola.Parameters.AddWithValue("@date", fecha);
                             consola.Parameters.AddWithValue("@i", inicio);
                             consola.Parameters.AddWithValue("@f", fin);
@@ -228,6 +244,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                             consola.Parameters.AddWithValue("@ubicacion", ubicacion);
                             consola.Parameters.AddWithValue("@esSerie", esSerie);
                             consola.Parameters.AddWithValue("@dias", dias);
+                            consola.Parameters.AddWithValue("@id", EventoID);
                             consola.ExecuteNonQuery();
 
                             //Actualizar la entrada en al tabla de lista
@@ -274,7 +291,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                             //Se aniaden los nuevos contactos que se hayan asociado con esta entrada de diario
                             foreach (int id in contactos)
                             {
-                                const string editarAsociacion = "update ListaContactoes set IDEvento=@ID where ListaContactoID=@contacto";
+                                const string editarAsociacion = "update ListaContactoes set IDEvento=@IDEvento where ListaContactoID=@contacto";
                                 consola.CommandText = editarAsociacion;
                                 consola.Parameters.AddWithValue("@IDEvento", EventoID);
                                 consola.Parameters.AddWithValue("@contacto", id);
@@ -290,6 +307,87 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                 Debug.WriteLine("Exception: " + eSql.Message);
                 return false;//Avisar que no se pudo actualizar
             }
+        }
+
+        public static ObservableCollection<Notificacion> NotificacionRelacionada(string connectionString, int id)//Metodo para recuperar datos
+        {
+            const string getNotifacionesQuery = "select NotificacionID, Titulo, Hora from Notificacions " +
+                "where NotificacionID=@idNotif";//Definicion de lo que queremos de Notificacion
+
+            var notificaciones = new ObservableCollection<Notificacion>();//Coleccion de notificacion para almacenar las entradas de la tabla
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    if (conn.State == ConnectionState.Open)
+                    {
+                        using (SqlCommand cmd = conn.CreateCommand())
+                        {
+                            cmd.CommandText = getNotifacionesQuery;
+                            cmd.Parameters.AddWithValue("@idNotif", id);
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    var notif = new Notificacion();//Una instancia de artistas para ir guardando y almacenando lo que se lea de la base
+                                    notif.NotificacionID = reader.GetInt32(0);//El parametro dentro de estos gets indica la posicion del atributo dentro de la tabla
+                                    //se usan castings con el reader[numeroColumna] para que los null se creen solos al leer
+                                    notif.Titulo = reader[1] as string;
+                                    notif.Hora = reader.GetDateTime(2);                           
+                                    notificaciones.Add(notif);//Aniade el memo que se creo antes a la coleccion
+                                }
+                            }
+                        }
+                    }
+                }
+                return notificaciones;
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+            }
+            return null;
+        }
+
+        public static ObservableCollection<Memo> MemoRelacionado(string connectionString, int id)//Metodo para recuperar datos
+        {
+            const string GetMemosQuery = "select MemoID, Contenido from Memos " +
+                "where MemoID=@idMemo";//Definicion de lo que queremos de Memo
+
+            var memos = new ObservableCollection<Memo>();//Coleccion de notificacion para almacenar las entradas de la tabla
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    if (conn.State == ConnectionState.Open)
+                    {
+                        using (SqlCommand cmd = conn.CreateCommand())
+                        {
+                            cmd.CommandText = GetMemosQuery;
+                            cmd.Parameters.AddWithValue("@idMemo", id);
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    var memo = new Memo();//Una instancia de artistas para ir guardando y almacenando lo que se lea de la base
+                                    memo.MemoID = reader.GetInt32(0);//El parametro dentro de estos gets indica la posicion del atributo dentro de la tabla
+                                    //se usan castings con el reader[numeroColumna] para que los null se creen solos al leer
+                                    memo.Contenido = reader[1] as string;
+                                    memos.Add(memo);//Aniade el memo que se creo antes a la coleccion
+                                }
+                            }
+                        }
+                    }
+                }
+                return memos;
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+            }
+            return null;
         }
 
         //No se usa, solo se leen todos los contactos

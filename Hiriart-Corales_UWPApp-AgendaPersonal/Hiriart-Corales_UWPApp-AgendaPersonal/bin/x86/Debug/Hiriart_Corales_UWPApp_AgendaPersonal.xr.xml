@@ -76,6 +76,7 @@
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Width" />
       <RootProperty Name="Height" />
+      <RootProperty Name="Name" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.ListBox">
       <RootProperty Name="Name" />
@@ -144,6 +145,9 @@
       <RootEvent Name="Unchecked" />
     </RootType>
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.EditarEventoPage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.AppBarSeparator" />
+    <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.EditarNotificacionPage" />
+    <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.NuevaNotificacionPage" />
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.NuevoEventoPage" />
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.NuevoContactoPage" />
     <RootType FullName="Windows.UI.Xaml.Documents.Run">
@@ -157,7 +161,6 @@
       <RootProperty Name="HeaderTemplate" />
       <RootProperty Name="ItemTemplate" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Controls.AppBarSeparator" />
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.ContactosPage" />
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.DiarioPage" />
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.EventosPage" />

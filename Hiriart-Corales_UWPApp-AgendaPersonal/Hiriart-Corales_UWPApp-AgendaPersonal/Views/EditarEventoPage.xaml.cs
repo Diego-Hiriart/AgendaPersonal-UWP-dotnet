@@ -55,6 +55,15 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
                 this.diasListBox.SelectAll();
                 inicializaDias(dias);//Lenar los demas dias que no van a estar en el dato leido
                 this.contactosListBox.ItemsSource = ContactosViewModel.ReadContactos((App.Current as App).ConnectionString);
+                if (seleccionadoContactoPage.NotificacionID!=0)
+                {
+                    this.notifiListBox.ItemsSource = EventosViewModel.NotificacionRelacionada((App.Current as App).ConnectionString, seleccionadoContactoPage.NotificacionID);
+                }
+                if (seleccionadoContactoPage.MemoID != 0)
+                {
+                    this.notifiListBox.ItemsSource = EventosViewModel.MemoRelacionado((App.Current as App).ConnectionString, seleccionadoContactoPage.MemoID);
+                }
+
                 if (!seleccionadoContactoPage.EsSerie)
                     this.diasListBox.IsEnabled = false;
             }
@@ -135,7 +144,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
                 if (this.notifiListBox.SelectedItem==null)
                     notif = new Notificacion();
 
-                bool exito = EventosViewModel.UpdateEvento((App.Current as App).ConnectionString, seleccionadoContactoPage.EventoID, memo.MemoID, notif.NotificacionID, 
+                bool exito = EventosViewModel.UpdateEvento((App.Current as App).ConnectionString, seleccionadoContactoPage.EventoID, notif.NotificacionID, memo.MemoID, 
                 (DateTimeOffset)this.fechaCalendarDatePicker.Date, (TimeSpan)this.inicioTimePicker.SelectedTime,
                     (TimeSpan)this.finTimePicker.SelectedTime, this.tituloTextBox.Text, this.descripcionTextBox.Text,
                     this.ubicacionTextBox.Text, (bool)this.serieCheckBox.IsChecked, dias, contactos);
