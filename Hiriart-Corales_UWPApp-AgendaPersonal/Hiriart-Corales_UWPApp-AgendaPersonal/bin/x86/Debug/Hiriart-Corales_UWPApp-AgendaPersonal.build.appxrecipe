@@ -34,6 +34,9 @@
     <AppxPackagedFile Include="C:\Users\diego\.nuget\packages\microsoft.toolkit.mvvm\7.0.1\lib\netstandard2.0\Microsoft.Toolkit.Mvvm.dll">
       <PackagePath>Microsoft.Toolkit.Mvvm.dll</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\diego\.nuget\packages\microsoft.toolkit.uwp.notifications\7.0.2\lib\uap10.0.16299\Microsoft.Toolkit.Uwp.Notifications.dll">
+      <PackagePath>Microsoft.Toolkit.Uwp.Notifications.dll</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\diego\.nuget\packages\microsoft.xaml.behaviors.uwp.managed\2.0.1\lib\uap10.0\Microsoft.Xaml.Interactions.dll">
       <PackagePath>Microsoft.Xaml.Interactions.dll</PackagePath>
     </AppxPackagedFile>

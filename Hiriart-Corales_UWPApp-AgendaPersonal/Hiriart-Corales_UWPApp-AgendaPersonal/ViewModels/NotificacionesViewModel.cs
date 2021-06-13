@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using Hiriart_Corales_UWPApp_AgendaPersonal.Core.Models;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
 {
@@ -56,10 +57,12 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
             return null;
         }
 
-        public static bool CreateNotificacion(string connectionString, string titulo, TimeSpan tiempo, DateTimeOffset fecha, int evento)
+        public static List<Object> CreateNotificacion(string connectionString, string titulo, TimeSpan tiempo, DateTimeOffset fecha, int evento)
         {
             DateTime horaNotif = (DateTime)(fecha.Date + tiempo);
+            List<Object> resultados = new List<object>();//Retorna una lista objetos porque se neceita el id para la notificacion otast y un bool para saber si funciono
 
+            int ultimaNotif = 0;
             try
             {
                 const string crearNotificacion = "insert into Notificacions(Titulo, Hora) values(@titulo, @hora)";
@@ -68,6 +71,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                     conn.Open();
                     if (conn.State == ConnectionState.Open)
                     {
+                        
                         using (SqlCommand cmd = conn.CreateCommand())
                         {
                             cmd.CommandText = crearNotificacion;
@@ -75,27 +79,27 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                             cmd.Parameters.AddWithValue("@hora", horaNotif);
                             cmd.ExecuteNonQuery();
 
-                            if (evento != 0)//Solo vincular si se selecciono algo
+                            //Id de ultimo memo, corre aqui para poder devolver un id que no sea cero en la lista del return
+                            List<int> notifIDs = new List<int>();//Para guardar memos leidos
+                            const string memos = "select NotificacionID from Notificacions";
+                            cmd.CommandText = memos;
+                            using (SqlDataReader lector = cmd.ExecuteReader())
                             {
-                                //Id de ultimo memo
-                                List<int> notifIDs = new List<int>();//Para guardar memos leidos
-                                const string memos = "select NotificacionID from Notificacions";
-                                cmd.CommandText = memos;
-                                using (SqlDataReader lector = cmd.ExecuteReader())
+                                while (lector.Read())
                                 {
-                                    while (lector.Read())
-                                    {
-                                        notifIDs.Add(lector.GetInt32(0));
-                                    }
+                                    notifIDs.Add(lector.GetInt32(0));
                                 }
-                                int ultimaNotif = 0;
-                                foreach (int id in notifIDs)
+                            }
+
+                            foreach (int id in notifIDs)
+                            {
+                                if (id > ultimaNotif)
                                 {
-                                    if (id > ultimaNotif)
-                                    {
-                                        ultimaNotif = id;
-                                    }
+                                    ultimaNotif = id;
                                 }
+                            }
+                            if (evento != 0)//Solo vincular si se selecciono algo
+                            {                           
 
                                 //Cambiar Memo ID en Evento correcto
                                 const string asociaNotif = "update Eventoes set NotificacionID=@idNotif where EventoID=@idEvento";
@@ -104,15 +108,18 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                 cmd.Parameters.AddWithValue("@idEvento", evento);
                                 cmd.ExecuteNonQuery();
                             }                          
-                        }
+                        }                       
                     }
                 }
-                return true;
+                resultados.Add(bool.Parse("true"));
+                resultados.Add(ultimaNotif);
+                return resultados;
             }
             catch (Exception eSql)
             {
                 Debug.WriteLine("Exception: " + eSql.Message);
-                return false;
+                resultados.Add(bool.Parse("true"));
+                return resultados;
             }
         }
 

@@ -342,7 +342,6 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                     //se usan castings con el reader[numeroColumna] para que los null se creen solos al leer
                                     notif.Titulo = reader[1] as string;
                                     notif.Hora = reader.GetDateTime(2);
-                                    Debug.WriteLine(notif.Titulo);
                                     notificaciones.Add(notif);//Aniade el memo que se creo antes a la coleccion
                                 }
                             }
@@ -383,7 +382,6 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                     memo.MemoID = reader.GetInt32(0);//El parametro dentro de estos gets indica la posicion del atributo dentro de la tabla
                                     //se usan castings con el reader[numeroColumna] para que los null se creen solos al leer
                                     memo.Contenido = reader[1] as string;
-                                    Debug.WriteLine(memo.Contenido);
                                     memos.Add(memo);//Aniade el memo que se creo antes a la coleccion
                                 }
                             }

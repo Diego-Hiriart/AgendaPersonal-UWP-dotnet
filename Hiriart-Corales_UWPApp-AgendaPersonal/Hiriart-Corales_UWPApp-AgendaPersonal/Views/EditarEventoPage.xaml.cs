@@ -61,7 +61,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
                 }
                 if (seleccionadoContactoPage.MemoID != 0)
                 {
-                    this.notifiListBox.ItemsSource = EventosViewModel.MemoRelacionado((App.Current as App).ConnectionString, seleccionadoContactoPage.MemoID);
+                    this.memoListBox.ItemsSource = EventosViewModel.MemoRelacionado((App.Current as App).ConnectionString, seleccionadoContactoPage.MemoID);
                 }
 
                 if (!seleccionadoContactoPage.EsSerie)

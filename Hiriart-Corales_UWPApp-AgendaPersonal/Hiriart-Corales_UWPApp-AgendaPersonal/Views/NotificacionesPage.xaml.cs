@@ -1,6 +1,7 @@
 ﻿using System;
 using Hiriart_Corales_UWPApp_AgendaPersonal.Core.Models;
 using Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels;
+using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using static Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels.NotificacionesViewModel;
@@ -54,6 +55,17 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
                 {
                     DeleteNotificacion((App.Current as App).ConnectionString, seleccionado.NotificacionID);
                     Actualizar();
+
+                    //Borrar toast
+                    var notificador = ToastNotificationManager.CreateToastNotifier();//Necesaria para llamar metodo que devuelve las toast pendientes
+                    var toastPendientes = notificador.GetScheduledToastNotifications();
+
+                    foreach(var toast in toastPendientes){//Si es el id de la que se esta borrando, se borra
+                        if (toast.Id.Equals("DHLC"+seleccionado.NotificacionID))
+                        {
+                            notificador.RemoveFromSchedule(toast);
+                        }
+                    }
                 }
                 else//Si no fue el primario, se le dio click al de Cancelar, o se salio de la ventana, entonces no se debería borrar
                 {

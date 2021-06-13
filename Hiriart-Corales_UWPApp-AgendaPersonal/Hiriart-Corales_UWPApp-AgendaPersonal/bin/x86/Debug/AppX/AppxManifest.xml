@@ -11,7 +11,7 @@
   <mp:PhoneIdentity PhoneProductId="52C12FA4-219F-4614-B103-34AC5E37D97C" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Hiriart_Corales_UWPApp_AgendaPersonal</DisplayName>
-    <PublisherDisplayName>diego</PublisherDisplayName>
+    <PublisherDisplayName>DiegoHiriart-LuisCorales</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>

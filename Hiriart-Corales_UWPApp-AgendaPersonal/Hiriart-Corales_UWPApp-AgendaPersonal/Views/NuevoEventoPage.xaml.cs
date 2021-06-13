@@ -124,8 +124,8 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
 
         private bool Validar()//Valida si fecha y contendo estan llenos
         {
-            if(this.fechaCalendarDatePicker.Date != null && !this.inicioTimePicker.SelectedTime.Equals(null) &&
-                !this.finTimePicker.SelectedTime.Equals(null) && !String.IsNullOrEmpty(this.tituloTextBox.Text) &&
+            if(this.fechaCalendarDatePicker.Date != null && this.inicioTimePicker.SelectedTime!=null &&
+                this.finTimePicker.SelectedTime!=null && !String.IsNullOrEmpty(this.tituloTextBox.Text) &&
                 !String.IsNullOrEmpty(this.descripcionTextBox.Text) && !String.IsNullOrEmpty(this.ubicacionTextBox.Text))
             {
                 return true;//Si se llenaron los campos

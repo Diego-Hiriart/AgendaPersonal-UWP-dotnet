@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Hiriart_Corales_UWPApp_AgendaPersonal.Core.Models;
 using Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels;
+using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -55,39 +56,77 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
 
         private async void GuardarBoton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            if (Validar())
+            DateTimeOffset fechaEscogidaOff = (DateTimeOffset)fechaCalendarDatePicker.Date;
+            DateTime fechaEscogida = (DateTime)(fechaEscogidaOff.Date + this.horaTimePicker.Time);
+            int comparacionFecha = DateTime.Compare(fechaEscogida, DateTime.Now);
+            if (comparacionFecha > 0)
             {
-                Evento evento = (Evento)this.eventosListBox.SelectedItem;
-                if (this.eventosListBox.SelectedItem == null)
-                    evento = new Evento();
-
-                bool exito = UpdateNotificacion((App.Current as App).ConnectionString, this.seleccionadoNotificacionPage.NotificacionID,
-                    this.tituloTextBox.Text, this.horaTimePicker.Time, (DateTimeOffset)this.fechaCalendarDatePicker.Date, evento.EventoID);
-                if (exito)
+                if (Validar())
                 {
-                    var ingresoExito = new MessageDialog("Se ha editado la entrada, puede seguir editandola \n" +
-                         "o volver a la pantalla principal de Notificaciones");
-                    ingresoExito.Title = "Entrada editada correctamente";
-                    await ingresoExito.ShowAsync();
+                    Evento evento = (Evento)this.eventosListBox.SelectedItem;
+                    if (this.eventosListBox.SelectedItem == null)
+                        evento = new Evento();
+
+                    bool exito = UpdateNotificacion((App.Current as App).ConnectionString, this.seleccionadoNotificacionPage.NotificacionID,
+                        this.tituloTextBox.Text, this.horaTimePicker.Time, (DateTimeOffset)this.fechaCalendarDatePicker.Date, evento.EventoID);
+                    if (exito)
+                    {
+                        var ingresoExito = new MessageDialog("Se ha editado la entrada, puede seguir editandola \n" +
+                             "o volver a la pantalla principal de Notificaciones");
+                        ingresoExito.Title = "Entrada editada correctamente";
+                        await ingresoExito.ShowAsync();
+
+                        //Editar toast
+                        var notificador = ToastNotificationManager.CreateToastNotifier();//Necesaria para llamar metodo que devuelve las toast pendientes
+                        var toastPendientes = notificador.GetScheduledToastNotifications();
+
+                        //Si es el id de la que se esta editando, hacer los cambios, para eso se debe borrar y crear otra
+                        foreach (var toastVieja in toastPendientes)
+                        {
+                            if (toastVieja.Id.Equals("DHLC" + seleccionadoNotificacionPage.NotificacionID))
+                            {
+                                notificador.RemoveFromSchedule(toastVieja);//Borrado de la anterior                        
+                            }
+                        }
+                        //Nueva toast
+                        //Crear notificacion Toast
+                        var notifToast = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText02);
+                        var textosNotif = notifToast.GetElementsByTagName("text");
+                        textosNotif[0].AppendChild(notifToast.CreateTextNode(this.tituloTextBox.Text));
+                        DateTimeOffset fecha = (DateTimeOffset)this.fechaCalendarDatePicker.Date;
+                        DateTime fechaHoraToast = (DateTime)(fecha.Date + this.horaTimePicker.Time);
+                        textosNotif[1].AppendChild(notifToast.CreateTextNode(fechaHoraToast.ToString()));
+                        var toast = new ScheduledToastNotification(notifToast, fechaHoraToast);
+                        toast.Id = "DHLC" + seleccionadoNotificacionPage.NotificacionID;
+                        toast.Tag = "DHLC" + seleccionadoNotificacionPage.NotificacionID;
+                        ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast);
+                    }
+                    else
+                    {
+                        var errorBase = new MessageDialog("Ha ocurrido un error con la base de datos, \nno se puede ingresar la notificación");
+                        errorBase.Title = "Error";
+                        await errorBase.ShowAsync();
+                    }
                 }
                 else
                 {
-                    var errorBase = new MessageDialog("Ha ocurrido un error con la base de datos, \nno se puede ingresar la notificación");
-                    errorBase.Title = "Error";
-                    await errorBase.ShowAsync();
+                    var faltanDatos = new MessageDialog("No se han ingresado todos los datos, intente \nde nuevo");
+                    faltanDatos.Title = "Error";
+                    await faltanDatos.ShowAsync();
                 }
             }
             else
             {
-                var faltanDatos = new MessageDialog("No se han ingresado todos los datos, intente \nde nuevo");
+                var faltanDatos = new MessageDialog("Escoja una fecha y hora posterior a la actual");
                 faltanDatos.Title = "Error";
                 await faltanDatos.ShowAsync();
             }
+            
         }
 
         private bool Validar()
         {
-            if (this.fechaCalendarDatePicker.Date!=null && !this.horaTimePicker.Time.Equals(null) && !String.IsNullOrEmpty(this.tituloTextBox.Text))
+            if (this.fechaCalendarDatePicker.Date!=null && this.horaTimePicker.SelectedTime!=null && !String.IsNullOrEmpty(this.tituloTextBox.Text))
             {
                 return true;
             }
