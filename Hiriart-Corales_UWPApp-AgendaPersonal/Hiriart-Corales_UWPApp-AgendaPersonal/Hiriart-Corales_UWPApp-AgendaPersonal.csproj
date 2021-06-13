@@ -152,6 +152,12 @@
     <Compile Include="Views\EditarContactopage.xaml.cs">
       <DependentUpon>EditarContactopage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditarEventoPage.xaml.cs">
+      <DependentUpon>EditarEventoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NuevoEventoPage.xaml.cs">
+      <DependentUpon>NuevoEventoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NuevoContactoPage.xaml.cs">
       <DependentUpon>NuevoContactoPage.xaml</DependentUpon>
     </Compile>
@@ -209,6 +215,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EditarContactopage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EditarEventoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NuevoEventoPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

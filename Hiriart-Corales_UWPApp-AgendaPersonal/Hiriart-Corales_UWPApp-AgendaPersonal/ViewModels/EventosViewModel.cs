@@ -80,16 +80,16 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
             return null;
         }
 
-        public static bool CreateEvento(string connectionString, int notif, int memo, DateTimeOffset tiempo, TimeSpan ini, TimeSpan fi,
+        public static bool CreateEvento(string connectionString, DateTimeOffset tiempo, TimeSpan ini, TimeSpan fi,
             string titulo, string descripcion, string ubicacion, bool esSerie, string dias, List<int?> contactos)
         {
             DateTime fecha = tiempo.Date;//transformar de DateTimeOffset a DateTime
-            DateTime inicio = (DateTime)(new DateTime() + ini);//cast por si son null
-            DateTime fin = (DateTime)(new DateTime() + fi);
+            DateTime inicio = (DateTime)(fecha + ini);//cast por si son null
+            DateTime fin = (DateTime)(fecha + fi);
 
             //Primero insertar una nueva entrada de Diarios
             const string insertarEvento = "insert into Eventoes(NotificacionID, MemoID, Fecha, Inicio, Fin, Titulo, Descripcion, Ubicacion, EsSerie, " +
-                "Dias) values(@notif, @memo, @date, @i, @f, @titulo, @descripcion, @ubicacion, @esSerie, @dias)";
+                "Dias) values(NULL, NULL, @date, @i, @f, @titulo, @descripcion, @ubicacion, @esSerie, @dias)";
             //Este tipo de sentencia con @Valor, permite llenar esos parametros luego, es más seguro porque evita inyección SQL, mejor acostumbarse a usar, Atte. Diego
 
             try
@@ -102,8 +102,6 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                         using (SqlCommand cmd = conn.CreateCommand())
                         {
                             cmd.CommandText = insertarEvento;
-                            cmd.Parameters.AddWithValue("@notif", notif);
-                            cmd.Parameters.AddWithValue("@memo", memo);
                             cmd.Parameters.AddWithValue("@date", fecha);
                             cmd.Parameters.AddWithValue("@i", inicio);
                             cmd.Parameters.AddWithValue("@f", fin);
@@ -137,7 +135,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                     }
                                 }
 
-                                //Asociar cada evento de la lista con la entrada de diario
+                                //Asociar cada contacto de la lista con la entrada de evento
                                 foreach (int id in contactos)
                                 {
                                     const string editarAsociacion = "update ListaContactoes set IDEvento=@ultima where ListaContacoID=@contacto";
@@ -145,15 +143,14 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                     cmd.Parameters.AddWithValue("@ultima", ultimaEntrada);
                                     cmd.Parameters.AddWithValue("@contacto", id);
                                     cmd.ExecuteNonQuery();
-                                }
-
-                                //Crear nueva entrada de ListaEventoes
-                                const string lista = "insert into ListaEventoes(IDDiario, Titulo, FechaEvento) values(NULL, @titEvento, @fechaEvent)";
-                                cmd.CommandText = lista;
-                                cmd.Parameters.AddWithValue("@titEvento", titulo);
-                                cmd.Parameters.AddWithValue("@fechaEvent", fecha);
-                                cmd.ExecuteNonQuery();
+                                }                 
                             }
+                            //Crear nueva entrada de ListaEventoes
+                            const string lista = "insert into ListaEventoes(IDDiario, Titulo, FechaEvento) values(NULL, @titEvento, @fechaEvent)";
+                            cmd.CommandText = lista;
+                            cmd.Parameters.AddWithValue("@titEvento", titulo);
+                            cmd.Parameters.AddWithValue("@fechaEvent", fecha);
+                            cmd.ExecuteNonQuery();
                         }
                     }
 
@@ -201,14 +198,14 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
             }
         }
 
-        public static bool UpdateDiario(string connectionString, int EventoID, int notif, int memo, DateTimeOffset tiempo, TimeSpan ini, TimeSpan fi,
+        public static bool UpdateEvento(string connectionString, int EventoID, int notif, int memo, DateTimeOffset tiempo, TimeSpan ini, TimeSpan fi,
             string titulo, string descripcion, string ubicacion, bool esSerie, string dias, List<int?> contactos)
         {
             DateTime fecha = tiempo.Date;//transformar de DateTimeOffset a DateTime
-            DateTime inicio = (DateTime)(new DateTime() + ini);//cast por si son null
-            DateTime fin = (DateTime)(new DateTime() + fi);
+            DateTime inicio = (DateTime)(fecha + ini);//cast por si son null
+            DateTime fin = (DateTime)(fecha + fi);
 
-            const string editarEvento = "update Eventoes NotificacionID=@notif, MemoID=@memo, Fecha=@date, Inicio=@i, Fin=@f, Titulo=titulo, " +
+            const string editarEvento = "update Eventoes set NotificacionID=@notif, MemoID=@memo, Fecha=@date, Inicio=@i, Fin=@f, Titulo=titulo, " +
                 "Descripcion=@descripcion, Ubicacion=@ubicacion, EsSerie=@esSerie, Dias=@dias where EventoID=@id";
 
             try
@@ -220,7 +217,6 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                     {
                         using (SqlCommand consola = conexion.CreateCommand())
                         {
-
                             consola.CommandText = editarEvento;
                             consola.Parameters.AddWithValue("@notif", notif);
                             consola.Parameters.AddWithValue("@memo", memo);
@@ -232,6 +228,14 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                             consola.Parameters.AddWithValue("@ubicacion", ubicacion);
                             consola.Parameters.AddWithValue("@esSerie", esSerie);
                             consola.Parameters.AddWithValue("@dias", dias);
+                            consola.ExecuteNonQuery();
+
+                            //Actualizar la entrada en al tabla de lista
+                            const string actualizarLista = "update ListaEventoes set Titulo=@titEvento, FechaEvento=@fechaEv where ListaEventoID=@idLista";
+                            consola.CommandText = actualizarLista;
+                            consola.Parameters.AddWithValue("@titEvento", titulo);
+                            consola.Parameters.AddWithValue("@fechaEv", fecha);
+                            consola.Parameters.AddWithValue("@idLista", EventoID);
                             consola.ExecuteNonQuery();
 
                             //Se quitan los contactos que se hayan desasociado en esta entrada, primero se leen los actuales

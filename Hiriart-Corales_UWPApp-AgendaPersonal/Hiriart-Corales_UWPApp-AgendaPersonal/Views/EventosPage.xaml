@@ -10,8 +10,25 @@
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <RelativePanel>
-                <ListView Name="ArtistasList"
+            <CommandBar Name="eventoCommandBar" VerticalAlignment="Top">
+                <CommandBar.PrimaryCommands>
+                    <AppBarButton Name="nuevoBoton" Label="Nuevo" Icon="Add" Click="NuevoBoton_Click"/>
+                    <AppBarSeparator/>
+                    <AppBarButton Name="editarBoton" Label="Editar"  Icon="Edit"  Width="Auto" Click="EditarBoton_Click"/>
+                    <AppBarSeparator/>
+                    <AppBarButton Name="eliminarBoton" Label="Eliminar"  Icon="Delete"  Width="Auto" Click="EliminarBoton_Click"/>
+                    <AppBarSeparator/>
+                </CommandBar.PrimaryCommands>
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton Name="ayudaBoton" Label="Ayuda" Click="AyudaBoton_Click"/>
+                    <AppBarButton Name="actualizarBoton" Label="Actualizar datos" Click="ActualizarBoton_Click"/>
+                </CommandBar.SecondaryCommands>
+                <CommandBar.Content>
+                    <TextBlock Text="Pantalla principal de Eventos"/>
+                </CommandBar.Content>
+            </CommandBar>
+            <RelativePanel Margin="0,20,0,0">
+                <ListView Name="EventosList"
                   SelectionMode="Single"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.IsVerticalRailEnabled="True"
@@ -39,13 +56,13 @@
                         <DataTemplate x:DataType="local:Evento">
                             <StackPanel Orientation="Horizontal" >
                                 <TextBlock Name="fechaTextBlock"
-                                       Text="{x:Bind Fecha}"
+                                       Text="{x:Bind Fecha.ToShortDateString()}"
                                        Width="150" TextWrapping="Wrap"/>
                                 <TextBlock Name="inicioTextBlock"
-                                       Text="{x:Bind Inicio}"
+                                       Text="{x:Bind Inicio.ToShortTimeString()}"
                                        Width="150" TextWrapping="Wrap"/>
                                 <TextBlock Name="finTextBlock"
-                                       Text="{x:Bind Fin}"
+                                       Text="{x:Bind Fin.ToShortTimeString()}"
                                        Width="150" TextWrapping="Wrap"/>
                                 <TextBlock Name="tituloTextBlock"
                                        Text="{x:Bind Titulo}"

@@ -21,6 +21,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
         {
             //Llama a la vista de nuevoDiarioPage
             this.Frame.Navigate(typeof(NuevoDiarioPage));
+            Actualizar();
         }
 
         private void EditarBoton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)

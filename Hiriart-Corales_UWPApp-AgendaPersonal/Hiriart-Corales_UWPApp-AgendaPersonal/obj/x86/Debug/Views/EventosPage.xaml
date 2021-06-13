@@ -10,8 +10,25 @@
     <Grid x:ConnectionId='2' x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <RelativePanel>
-                <ListView x:ConnectionId='3' Name="ArtistasList"
+            <CommandBar x:ConnectionId='3' Name="eventoCommandBar" VerticalAlignment="Top">
+                <CommandBar.PrimaryCommands>
+                    <AppBarButton x:ConnectionId='17' Name="nuevoBoton" Label="Nuevo" Icon="Add"                         />
+                    <AppBarSeparator/>
+                    <AppBarButton x:ConnectionId='18' Name="editarBoton" Label="Editar"  Icon="Edit"  Width="Auto"                          />
+                    <AppBarSeparator/>
+                    <AppBarButton x:ConnectionId='19' Name="eliminarBoton" Label="Eliminar"  Icon="Delete"  Width="Auto"                            />
+                    <AppBarSeparator/>
+                </CommandBar.PrimaryCommands>
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton x:ConnectionId='20' Name="ayudaBoton" Label="Ayuda"                         />
+                    <AppBarButton x:ConnectionId='21' Name="actualizarBoton" Label="Actualizar datos"                              />
+                </CommandBar.SecondaryCommands>
+                <CommandBar.Content>
+                    <TextBlock Text="Pantalla principal de Eventos"/>
+                </CommandBar.Content>
+            </CommandBar>
+            <RelativePanel Margin="0,20,0,0">
+                <ListView x:ConnectionId='4' Name="EventosList"
                   SelectionMode="Single"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.IsVerticalRailEnabled="True"
@@ -37,32 +54,32 @@
                     </ListView.HeaderTemplate>
                     <ListView.ItemTemplate>
                         <DataTemplate                          >
-                            <StackPanel x:ConnectionId='6' Orientation="Horizontal" >
-                                <TextBlock x:ConnectionId='7' Name="fechaTextBlock"
-                                                            
+                            <StackPanel x:ConnectionId='7' Orientation="Horizontal" >
+                                <TextBlock x:ConnectionId='8' Name="fechaTextBlock"
+                                                                                
                                        Width="150" TextWrapping="Wrap"/>
-                                <TextBlock x:ConnectionId='8' Name="inicioTextBlock"
+                                <TextBlock x:ConnectionId='9' Name="inicioTextBlock"
+                                                                                 
+                                       Width="150" TextWrapping="Wrap"/>
+                                <TextBlock x:ConnectionId='10' Name="finTextBlock"
+                                                                              
+                                       Width="150" TextWrapping="Wrap"/>
+                                <TextBlock x:ConnectionId='11' Name="tituloTextBlock"
                                                              
                                        Width="150" TextWrapping="Wrap"/>
-                                <TextBlock x:ConnectionId='9' Name="finTextBlock"
-                                                          
-                                       Width="150" TextWrapping="Wrap"/>
-                                <TextBlock x:ConnectionId='10' Name="tituloTextBlock"
-                                                             
-                                       Width="150" TextWrapping="Wrap"/>
-                                <TextBlock x:ConnectionId='11' Name="descripcionTextBlock"
+                                <TextBlock x:ConnectionId='12' Name="descripcionTextBlock"
                                                                   
                                        Width="200" TextWrapping="Wrap"/>
-                                <TextBlock x:ConnectionId='12' Name="ubicacionTextBlock"
+                                <TextBlock x:ConnectionId='13' Name="ubicacionTextBlock"
                                                                 
                                        Width="200" TextWrapping="Wrap"/>
-                                <TextBlock x:ConnectionId='13' Name="esSerieTextBlock"
+                                <TextBlock x:ConnectionId='14' Name="esSerieTextBlock"
                                                               
                                        Width="150" TextWrapping="Wrap"/>
-                                <TextBlock x:ConnectionId='14' Name="diasTextBlock"
+                                <TextBlock x:ConnectionId='15' Name="diasTextBlock"
                                                            
                                        Width="150" TextWrapping="Wrap"/>
-                                <TextBlock x:ConnectionId='15' Name="contactosTextBlock"
+                                <TextBlock x:ConnectionId='16' Name="contactosTextBlock"
                                                                 
                                        Width="150" TextWrapping="Wrap"/>
                             </StackPanel>
