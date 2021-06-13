@@ -21,7 +21,7 @@
                     <AppBarButton Name="ayudaBoton" Label="Ayuda" Click="AyudaBoton_Click"/>
                 </CommandBar.SecondaryCommands>
                 <CommandBar.Content>
-                    <TextBlock Text="Nueva Notificacion"/>
+                    <TextBlock Text="Editar Notificacion"/>
                 </CommandBar.Content>
             </CommandBar>
             <RelativePanel Margin="0,20,0,0">

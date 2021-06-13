@@ -19,7 +19,10 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
         {
             const string GetEventosQuery = "select Eventoes.EventoID, Eventoes.Fecha, Eventoes.Inicio, Eventoes.Fin, " +//Definicion de lo que queremos de Evento
                 "Eventoes.Titulo, Eventoes.Descripcion, Eventoes.Ubicacion, Eventoes.EsSerie, Eventoes.Dias, Eventoes.NotificacionID, " +
-                "Eventoes.MemoID, ListaContactoes.NombreApellido from Eventoes left join ListaContactoes on ListaContactoes.IDEvento=Eventoes.EventoID";
+                "Eventoes.MemoID, ListaContactoes.NombreApellido, Memos.Contenido, Notificacions.Titulo from Eventoes " +
+                "left join ListaContactoes on ListaContactoes.IDEvento=Eventoes.EventoID " +
+                "left join Memos on Memos.MemoID=Eventoes.EventoID " +
+                "left join Notificacions on Notificacions.NotificacionID=Eventoes.EventoID";
 
             var eventos = new ObservableCollection<Evento>();//Coleccion de evento para almacenar las entradas de la tabla
             try
@@ -66,6 +69,12 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                     //Se hace lo mismo que antes en este reader, para problemas de null
                                         
                                     evento.Contactos = nombres;
+
+                                    evento.Memo = reader[12] as string;
+
+                                    evento.Notificacion = reader[13] as string;
+
+                                    Debug.WriteLine(evento.Memo+" "+evento.Notificacion);
 
                                     eventos.Add(evento);//Aniade el evento que se creo antes a la coleccion
                                 }

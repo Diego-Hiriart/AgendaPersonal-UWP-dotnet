@@ -50,10 +50,10 @@
                             <StackPanel x:ConnectionId='7' Orientation="Horizontal" >
                                 <TextBlock x:ConnectionId='8' Name="contenidoTextBlock"
                                                                 
-                                       Width="150" TextWrapping="Wrap"/>
+                                       Width="500" TextWrapping="Wrap"/>
                                 <TextBlock x:ConnectionId='9' Name="eventoTextBlock"
                                                              
-                                       Width="150" TextWrapping="Wrap"/>
+                                       Width="200" TextWrapping="Wrap"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

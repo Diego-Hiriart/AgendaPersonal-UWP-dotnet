@@ -17,6 +17,7 @@ Views\DiarioPage.xbf
 Views\EditarContactopage.xbf
 Views\EditarDiario.xbf
 Views\EditarEventoPage.xbf
+Views\EditarMemoPage.xbf
 Views\EditarNotificacionPage.xbf
 Views\EventosPage.xbf
 Views\MemosPage.xbf
@@ -25,6 +26,7 @@ Views\NuevaNotificacionPage.xbf
 Views\NuevoContactoPage.xbf
 Views\NuevoDiarioPage.xbf
 Views\NuevoEventoPage.xbf
+Views\NuevoMemoPage.xbf
 Views\ShellPage.xbf
 Properties\Default.rd.xml
 WinMetadata\Windows.winmd

@@ -12,6 +12,8 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Core.Models
 
         public string Evento { get; set; }
 
+        public DateTime Fecha { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(string propertyName)
         {

@@ -128,14 +128,14 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                     {
                         using (SqlCommand consola = conn.CreateCommand())
                         {
-                            consola.CommandText = borrarNotif;
-                            consola.Parameters.AddWithValue("@notif", notif);
-                            consola.ExecuteNonQuery();
-
                             const string actualizaEvento = "update Eventoes set NotificacionID=NULL where NotificacionID=@id";
                             consola.CommandText = actualizaEvento;
                             consola.Parameters.AddWithValue("@id", notif);
                             consola.ExecuteNonQuery();
+
+                            consola.CommandText = borrarNotif;
+                            consola.Parameters.AddWithValue("@notif", notif);
+                            consola.ExecuteNonQuery();                           
                         }
                     }
                 }

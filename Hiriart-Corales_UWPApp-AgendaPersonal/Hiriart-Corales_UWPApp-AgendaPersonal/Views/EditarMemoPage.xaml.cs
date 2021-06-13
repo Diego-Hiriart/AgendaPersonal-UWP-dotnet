@@ -1,17 +1,44 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Hiriart_Corales_UWPApp_AgendaPersonal.Core.Models;
 using Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
-using static Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels.NotificacionesViewModel;
+using Windows.UI.Xaml.Navigation;
+using static Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels.MemosViewModel;
 
 namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
 {
-    public sealed partial class NuevaNotificacionPage : Page
+    public sealed partial class EditarMemoPage : Page
     {
+
         ObservableCollection<Evento> Eventos = new ObservableCollection<Evento>();
-        public NuevaNotificacionPage()
+        Memo seleccionadoMemoPage;//variable global para sacar datos del seleccionado originalmente, sobre todo para el ID para poder editar
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)//Metodo a usar en caso de pasar parametros durante la navegacion
+        {
+            if (!e.Parameter.Equals(null))//No continuar si es null, habrian errores
+            {
+                this.seleccionadoMemoPage = (Memo)e.Parameter;
+
+                //Llenar los campos con los datos ya conocidos de la entrada seleccionada
+                this.eventosListBox.ItemsSource = EventosRelacionados((App.Current as App).ConnectionString, (DateTimeOffset)seleccionadoMemoPage.Fecha.Date);
+                Evento evento = new Evento();
+                foreach (Evento even in this.eventosListBox.Items)
+                {
+                    evento = even;
+                }
+                this.fechaCalendarDatePicker.Date = evento.Fecha.Date;              
+                this.contenidoTextBox.Text = seleccionadoMemoPage.Contenido;
+            }
+            else//Volver a la pantalla principal si es null, quiere decir que no se selecciono nada
+            {
+                this.Frame.Navigate(typeof(MemosPage));
+            }
+        }
+
+        public EditarMemoPage()
         {
             InitializeComponent();
         }
@@ -26,7 +53,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
 
         private void VolverBoton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            //Llama a la vista DiarioPage
+            //Llama a la vista NotificionesPage
             this.Frame.Navigate(typeof(NotificacionesPage));
         }
 
@@ -38,23 +65,18 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
                 if (this.eventosListBox.SelectedItem == null)
                     evento = new Evento();
 
-                bool exito = CreateNotificacion((App.Current as App).ConnectionString, this.tituloTextBox.Text, this.horaTimePicker.Time,
-                    (DateTimeOffset)this.fechaCalendarDatePicker.Date, evento.EventoID);
+                bool exito = UpdateMemo((App.Current as App).ConnectionString, this.seleccionadoMemoPage.MemoID,
+                    this.contenidoTextBox.Text, evento.EventoID);
                 if (exito)
                 {
-                    var ingresoExito = new MessageDialog("Se ha creado la notificación");
-                    ingresoExito.Title = "Información";
+                    var ingresoExito = new MessageDialog("Se ha editado la entrada, puede seguir editandola \n" +
+                         "o volver a la pantalla principal de Memos");
+                    ingresoExito.Title = "Entrada editada correctamente";
                     await ingresoExito.ShowAsync();
-                    //Resetear interfaz
-                    this.fechaCalendarDatePicker.Date = null;
-                    Eventos.Clear();
-                    this.eventosListBox.ItemsSource = Eventos;
-                    this.tituloTextBox.Text = "";
-                    this.horaTimePicker.SelectedTime = null;
                 }
                 else
                 {
-                    var errorBase = new MessageDialog("Ha ocurrido un error con la base de datos, \nno se puede ingresar la notificación");
+                    var errorBase = new MessageDialog("Ha ocurrido un error con la base de datos, \nno se puede ingresar el memo");
                     errorBase.Title = "Error";
                     await errorBase.ShowAsync();
                 }
@@ -69,7 +91,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
 
         private bool Validar()
         {
-            if (this.fechaCalendarDatePicker.Date!=null && !this.horaTimePicker.Time.Equals(null) && !String.IsNullOrEmpty(this.tituloTextBox.Text))
+            if (this.fechaCalendarDatePicker.Date!=null && this.eventosListBox.SelectedItem!=null && !String.IsNullOrEmpty(this.contenidoTextBox.Text))
             {
                 return true;
             }

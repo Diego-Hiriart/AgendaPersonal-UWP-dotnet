@@ -146,7 +146,9 @@
     </RootType>
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.EditarEventoPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.AppBarSeparator" />
+    <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.EditarMemoPage" />
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.EditarNotificacionPage" />
+    <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.NuevoMemoPage" />
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.NuevaNotificacionPage" />
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.NuevoEventoPage" />
     <RootType FullName="Hiriart_Corales_UWPApp_AgendaPersonal.Views.NuevoContactoPage" />

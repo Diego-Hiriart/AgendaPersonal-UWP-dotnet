@@ -155,8 +155,14 @@
     <Compile Include="Views\EditarEventoPage.xaml.cs">
       <DependentUpon>EditarEventoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditarMemoPage.xaml.cs">
+      <DependentUpon>EditarMemoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditarNotificacionPage.xaml.cs">
       <DependentUpon>EditarNotificacionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NuevoMemoPage.xaml.cs">
+      <DependentUpon>NuevoMemoPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NuevaNotificacionPage.xaml.cs">
       <DependentUpon>NuevaNotificacionPage.xaml</DependentUpon>
@@ -228,7 +234,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\EditarMemoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\EditarNotificacionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NuevoMemoPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

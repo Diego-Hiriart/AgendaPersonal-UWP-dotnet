@@ -19,7 +19,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
 
         private void NuevoBoton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            //Llama a la vista de nuevoDiarioPage
+            //Llama a la vista de nuevaNotificacionPage
             this.Frame.Navigate(typeof(NuevaNotificacionPage));
             Actualizar();
         }

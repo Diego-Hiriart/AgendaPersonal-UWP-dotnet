@@ -12,16 +12,16 @@
             Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <CommandBar x:ConnectionId='3' Name="eventoCommandBar" VerticalAlignment="Top">
                 <CommandBar.PrimaryCommands>
-                    <AppBarButton x:ConnectionId='17' Name="nuevoBoton" Label="Nuevo" Icon="Add"                         />
+                    <AppBarButton x:ConnectionId='19' Name="nuevoBoton" Label="Nuevo" Icon="Add"                         />
                     <AppBarSeparator/>
-                    <AppBarButton x:ConnectionId='18' Name="editarBoton" Label="Editar"  Icon="Edit"  Width="Auto"                          />
+                    <AppBarButton x:ConnectionId='20' Name="editarBoton" Label="Editar"  Icon="Edit"  Width="Auto"                          />
                     <AppBarSeparator/>
-                    <AppBarButton x:ConnectionId='19' Name="eliminarBoton" Label="Eliminar"  Icon="Delete"  Width="Auto"                            />
+                    <AppBarButton x:ConnectionId='21' Name="eliminarBoton" Label="Eliminar"  Icon="Delete"  Width="Auto"                            />
                     <AppBarSeparator/>
                 </CommandBar.PrimaryCommands>
                 <CommandBar.SecondaryCommands>
-                    <AppBarButton x:ConnectionId='20' Name="ayudaBoton" Label="Ayuda"                         />
-                    <AppBarButton x:ConnectionId='21' Name="actualizarBoton" Label="Actualizar datos"                              />
+                    <AppBarButton x:ConnectionId='22' Name="ayudaBoton" Label="Ayuda"                         />
+                    <AppBarButton x:ConnectionId='23' Name="actualizarBoton" Label="Actualizar datos"                              />
                 </CommandBar.SecondaryCommands>
                 <CommandBar.Content>
                     <TextBlock Text="Pantalla principal de Eventos"/>
@@ -48,7 +48,9 @@
                                 <TextBlock Text="Ubicación" Width="200" Foreground="#FF403D3D" />
                                 <TextBlock Text="Es serie" Width="150" Foreground="#FF403D3D" />
                                 <TextBlock Text="Días" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Contactos relacionados" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Contactos relacionados" Width="200" Foreground="#FF403D3D" />
+                                <TextBlock Text="Memo" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Notificación" Width="150" Foreground="#FF403D3D" />
                             </StackPanel>
                         </DataTemplate>
                     </ListView.HeaderTemplate>
@@ -81,6 +83,12 @@
                                        Width="150" TextWrapping="Wrap"/>
                                 <TextBlock x:ConnectionId='16' Name="contactosTextBlock"
                                                                 
+                                       Width="200" TextWrapping="Wrap"/>
+                                <TextBlock x:ConnectionId='17' Name="memoTextBlock"
+                                                           
+                                       Width="150" TextWrapping="Wrap"/>
+                                <TextBlock x:ConnectionId='18' Name="notifTextBlock"
+                                                                   
                                        Width="150" TextWrapping="Wrap"/>
                             </StackPanel>
                         </DataTemplate>

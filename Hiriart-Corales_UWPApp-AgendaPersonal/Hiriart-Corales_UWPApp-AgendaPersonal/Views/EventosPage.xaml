@@ -48,7 +48,9 @@
                                 <TextBlock Text="Ubicación" Width="200" Foreground="#FF403D3D" />
                                 <TextBlock Text="Es serie" Width="150" Foreground="#FF403D3D" />
                                 <TextBlock Text="Días" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Contactos relacionados" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Contactos relacionados" Width="200" Foreground="#FF403D3D" />
+                                <TextBlock Text="Memo" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Notificación" Width="150" Foreground="#FF403D3D" />
                             </StackPanel>
                         </DataTemplate>
                     </ListView.HeaderTemplate>
@@ -81,6 +83,12 @@
                                        Width="150" TextWrapping="Wrap"/>
                                 <TextBlock Name="contactosTextBlock"
                                        Text="{x:Bind Contactos}"
+                                       Width="200" TextWrapping="Wrap"/>
+                                <TextBlock Name="memoTextBlock"
+                                       Text="{x:Bind Memo}"
+                                       Width="150" TextWrapping="Wrap"/>
+                                <TextBlock Name="notifTextBlock"
+                                       Text="{x:Bind Notificacion}"
                                        Width="150" TextWrapping="Wrap"/>
                             </StackPanel>
                         </DataTemplate>

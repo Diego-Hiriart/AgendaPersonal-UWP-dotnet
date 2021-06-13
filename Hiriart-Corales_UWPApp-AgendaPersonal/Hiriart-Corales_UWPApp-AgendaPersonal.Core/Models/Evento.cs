@@ -18,8 +18,12 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Core.Models
         public string Dias { get; set; }
 
         public string Contactos { get; set; }
+        public string Notificacion { get; set; }
+        public string Memo { get; set; }
         public int NotificacionID { get; set; }
         public int MemoID { get; set; }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(string propertyName)

@@ -4,14 +4,14 @@ using Hiriart_Corales_UWPApp_AgendaPersonal.Core.Models;
 using Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
-using static Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels.NotificacionesViewModel;
+using static Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels.MemosViewModel;
 
 namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
 {
-    public sealed partial class NuevaNotificacionPage : Page
+    public sealed partial class NuevoMemoPage : Page
     {
         ObservableCollection<Evento> Eventos = new ObservableCollection<Evento>();
-        public NuevaNotificacionPage()
+        public NuevoMemoPage()
         {
             InitializeComponent();
         }
@@ -19,7 +19,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
         private async void AyudaBoton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var ayuda = new MessageDialog("Utilice el simbolo de guardado para añadir una entrada \n" +
-                "de dario, la flecha hacia la izquirda le permite volver a la pantalla principal de Notificaciones");
+                "de dario, la flecha hacia la izquirda le permite volver a la pantalla principal de Memos");
             ayuda.Title = "Información";
             await ayuda.ShowAsync();
         }
@@ -27,7 +27,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
         private void VolverBoton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             //Llama a la vista DiarioPage
-            this.Frame.Navigate(typeof(NotificacionesPage));
+            this.Frame.Navigate(typeof(MemosPage));
         }
 
         private async void GuardarBoton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -38,23 +38,22 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
                 if (this.eventosListBox.SelectedItem == null)
                     evento = new Evento();
 
-                bool exito = CreateNotificacion((App.Current as App).ConnectionString, this.tituloTextBox.Text, this.horaTimePicker.Time,
-                    (DateTimeOffset)this.fechaCalendarDatePicker.Date, evento.EventoID);
+                bool exito = CreateMemo((App.Current as App).ConnectionString, this.contenidoTextBox.Text,
+                    evento.EventoID);
                 if (exito)
                 {
-                    var ingresoExito = new MessageDialog("Se ha creado la notificación");
+                    var ingresoExito = new MessageDialog("Se ha creado el memo");
                     ingresoExito.Title = "Información";
                     await ingresoExito.ShowAsync();
                     //Resetear interfaz
                     this.fechaCalendarDatePicker.Date = null;
                     Eventos.Clear();
                     this.eventosListBox.ItemsSource = Eventos;
-                    this.tituloTextBox.Text = "";
-                    this.horaTimePicker.SelectedTime = null;
+                    this.contenidoTextBox.Text = "";
                 }
                 else
                 {
-                    var errorBase = new MessageDialog("Ha ocurrido un error con la base de datos, \nno se puede ingresar la notificación");
+                    var errorBase = new MessageDialog("Ha ocurrido un error con la base de datos, \nno se puede ingresar el memo");
                     errorBase.Title = "Error";
                     await errorBase.ShowAsync();
                 }
@@ -69,7 +68,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
 
         private bool Validar()
         {
-            if (this.fechaCalendarDatePicker.Date!=null && !this.horaTimePicker.Time.Equals(null) && !String.IsNullOrEmpty(this.tituloTextBox.Text))
+            if (this.fechaCalendarDatePicker.Date!=null && this.eventosListBox.SelectedItem!=null &&!String.IsNullOrEmpty(this.contenidoTextBox.Text))
             {
                 return true;
             }

@@ -17,7 +17,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
 
         public static ObservableCollection<Memo> ReadMemos(string connectionString)//Metodo para recuperar datos
         {
-            const string GetMemosQuery = "select Memos.MemoID, Memos.Contenido, Eventoes.Titulo from Memos " +
+            const string GetMemosQuery = "select Memos.MemoID, Memos.Contenido, Eventoes.Titulo, Eventoes.Fecha from Memos " +
                 "left join Eventoes on Eventoes.MemoID=Memos.MemoID";//Definicion de lo que queremos de Memo
 
             var memos = new ObservableCollection<Memo>();//Coleccion de notificacion para almacenar las entradas de la tabla
@@ -40,6 +40,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                     //se usan castings con el reader[numeroColumna] para que los null se creen solos al leer
                                     memo.Contenido = reader[1] as string;
                                     memo.Evento = reader[2] as string;
+                                    memo.Fecha = reader.GetDateTime(3);
                                     memos.Add(memo);//Aniade el memo que se creo antes a la coleccion
                                 }                                                                            
                             }
@@ -121,14 +122,14 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                     {
                         using (SqlCommand consola = conn.CreateCommand())
                         {
-                            consola.CommandText = borrarMemo;
-                            consola.Parameters.AddWithValue("@memo", memo);
-                            consola.ExecuteNonQuery();
-
                             const string actualizaEvento = "update Eventoes set MemoID=NULL where MemoID=@id";
                             consola.CommandText = actualizaEvento;
                             consola.Parameters.AddWithValue("@id", memo);
                             consola.ExecuteNonQuery();
+
+                            consola.CommandText = borrarMemo;
+                            consola.Parameters.AddWithValue("@memo", memo);
+                            consola.ExecuteNonQuery();                            
                         }
                     }
                 }
@@ -174,6 +175,58 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                 Debug.WriteLine("Exception: " + eSql.Message);
                 return false;
             }
+        }
+
+        public static ObservableCollection<Evento> EventosRelacionados(string connectionString, DateTimeOffset date)//Metodo para recuperar datos
+        {
+            const string GetEventosQuery = "select EventoID, Fecha, Inicio, Fin, " +//Definicion de lo que queremos de Evento
+                "Titulo, Descripcion, Ubicacion, EsSerie, Dias from Eventoes " +
+                "where Fecha=@fechaEv";
+
+            DateTime fecha = (DateTime)date.Date;
+
+            var eventos = new ObservableCollection<Evento>();//Coleccion de evento para almacenar las entradas de la tabla
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    if (conn.State == ConnectionState.Open)
+                    {
+                        using (SqlCommand cmd = conn.CreateCommand())
+                        {
+
+                            cmd.CommandText = GetEventosQuery;
+                            cmd.Parameters.AddWithValue("@fechaEv", fecha);
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    var evento = new Evento();//Una instancia de evento para ir guardando y almacenando lo que se lea de la base
+                                    evento.EventoID = reader.GetInt32(0);//El parametro dentro de estos gets indica la posicion del atributo dentro de la tabla                                  
+                                    evento.Fecha = reader.GetDateTime(1);
+                                    evento.Inicio = reader.GetDateTime(2);
+                                    evento.Fin = reader.GetDateTime(3);
+                                    //se usa "reader[numeroColumna] as tipoDato" para evitar errores por null
+                                    evento.Titulo = reader[4] as string;
+                                    evento.Descripcion = reader[5] as string;
+                                    evento.Ubicacion = reader[6] as string;
+                                    evento.EsSerie = reader.GetBoolean(7);
+                                    evento.Dias = reader[8] as string;
+
+                                    eventos.Add(evento);//Aniade el evento que se creo antes a la coleccion
+                                }
+                            }
+                        }
+                    }
+                }
+                return eventos;
+            }
+            catch (Exception eSql)
+            {
+                Debug.WriteLine("Exception: " + eSql.Message);
+            }
+            return null;
         }
     }   
 }

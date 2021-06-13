@@ -50,10 +50,10 @@
                             <StackPanel Orientation="Horizontal" >
                                 <TextBlock Name="contenidoTextBlock"
                                        Text="{x:Bind Contenido}"
-                                       Width="150" TextWrapping="Wrap"/>
+                                       Width="500" TextWrapping="Wrap"/>
                                 <TextBlock Name="eventoTextBlock"
                                        Text="{x:Bind Evento}"
-                                       Width="150" TextWrapping="Wrap"/>
+                                       Width="200" TextWrapping="Wrap"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
