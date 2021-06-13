@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Hiriart_Corales_UWPApp_AgendaPersonal.Core.Models;
 using Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels;
 using Windows.UI.Popups;

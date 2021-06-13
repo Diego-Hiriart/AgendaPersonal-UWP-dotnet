@@ -40,7 +40,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                     //se usan castings con el reader[numeroColumna] para que los null se creen solos al leer
                                     memo.Contenido = reader[1] as string;
                                     memo.Evento = reader[2] as string;
-                                    memo.Fecha = reader.GetDateTime(3);
+                                    memo.Fecha = reader[3] as DateTime?;
                                     memos.Add(memo);//Aniade el memo que se creo antes a la coleccion
                                 }                                                                            
                             }

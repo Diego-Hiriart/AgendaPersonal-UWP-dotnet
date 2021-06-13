@@ -18,8 +18,8 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
         //El siguiente metodo es static para poder llamarlo sin instanciar, también se le prodía colocar en una librería de funciones para SQL
         public static ObservableCollection<Diario> ReadDiarios(string connectionString)//Metodo para recuperar datos
         {
-            const string GetDiariosQuery = "select Diarios.DiarioID, Diarios.Fecha, Diarios.Contenido, ListaEventoes.Titulo " +//Definicion de lo que queremos de Diario
-                "from Diarios left join ListaEventoes on ListaEventoes.IDDiario=Diarios.DiarioID";
+            const string GetDiariosQuery = "select Diarios.DiarioID, Diarios.Fecha, Diarios.Contenido, Eventoes.Titulo " +//Definicion de lo que queremos de Diario
+                "from Diarios left join Eventoes on Eventoes.DiarioID=Diarios.DiarioID";
             /* left join permite sacar de dos tablas al mismo tiempo, siempre y cuando haya clave foranea que les relacione, 
              * se debe poner tabla.Atributo para sacar porque hay dos tablas involucradas, left join coge todos, tengan o no relacion con la otra tabla
             */
@@ -62,7 +62,6 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                         titulos += ", " + reader[3] as string;
                                     }
                                     //Se hace lo mismo que antes en este reader, para problemas de null
-
 
                                     diario.Eventos = titulos;
                                     
@@ -130,11 +129,20 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                 //Asociar cada evento de la lista con la entrada de diario
                                 foreach (int id in eventos)
                                 {
+                                    //En la lista de eventos
                                     const string editarAsociacion = "update ListaEventoes set IDDiario=@ultima where ListaEventoID=@evento";
                                     cmd.CommandText = editarAsociacion;
                                     cmd.Parameters.AddWithValue("@ultima", ultimaEntrada);
                                     cmd.Parameters.AddWithValue("@evento", id);
                                     cmd.ExecuteNonQuery();
+
+                                    //En el evento en si
+                                    const string editarEVento = "update Eventoes set DiarioID=@ultimaEnt where EventoID=@event";
+                                    cmd.CommandText = editarEVento;
+                                    cmd.Parameters.AddWithValue("@ultimaEnt", ultimaEntrada);
+                                    cmd.Parameters.AddWithValue("@event", id);
+                                    cmd.ExecuteNonQuery();
+
                                 }                               
                             }
                         }                      
@@ -235,10 +243,18 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                             //Se aniaden los nuevos eventos que se hayan asociado con esta entrada de diario
                             foreach (int id in eventos)
                             {
+                                //En la lista
                                 const string editarAsociacion = "update ListaEventoes set IDDiario=@ID where ListaEventoID=@evento";
                                 consola.CommandText = editarAsociacion;
                                 consola.Parameters.AddWithValue("@IDDiario", DiarioID);
                                 consola.Parameters.AddWithValue("@evento", id);
+                                consola.ExecuteNonQuery();
+
+                                //En el evento en si
+                                const string editarEVento = "update Eventoes set DiarioID=@ultimaEnt where EventoID=@event";
+                                consola.CommandText = editarEVento;
+                                consola.Parameters.AddWithValue("@ultimaEnt", DiarioID);
+                                consola.Parameters.AddWithValue("@event", id);
                                 consola.ExecuteNonQuery();
                             }
                         }

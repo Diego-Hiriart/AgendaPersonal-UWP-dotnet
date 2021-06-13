@@ -6,3 +6,4 @@ C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-Age
 C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal.Core\obj\Debug\netstandard2.0\Hiriart-Corales_UWPApp-AgendaPersonal.Core.csproj.CoreCompileInputs.cache
 C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal.Core\obj\Debug\netstandard2.0\Hiriart-Corales_UWPApp-AgendaPersonal.Core.dll
 C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal.Core\obj\Debug\netstandard2.0\Hiriart-Corales_UWPApp-AgendaPersonal.Core.pdb
+C:\Code UDLA\Programacion 4\AgendaPersonal-UWP-dotnet\Hiriart-Corales_UWPApp-AgendaPersonal\Hiriart-Corales_UWPApp-AgendaPersonal.Core\obj\Debug\netstandard2.0\Hiriart-Corales_UWPApp-AgendaPersonal.Core.csprojAssemblyReference.cache

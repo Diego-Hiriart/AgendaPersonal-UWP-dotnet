@@ -21,8 +21,8 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                 "Eventoes.Titulo, Eventoes.Descripcion, Eventoes.Ubicacion, Eventoes.EsSerie, Eventoes.Dias, Eventoes.NotificacionID, " +
                 "Eventoes.MemoID, ListaContactoes.NombreApellido, Memos.Contenido, Notificacions.Titulo from Eventoes " +
                 "left join ListaContactoes on ListaContactoes.IDEvento=Eventoes.EventoID " +
-                "left join Memos on Memos.MemoID=Eventoes.EventoID " +
-                "left join Notificacions on Notificacions.NotificacionID=Eventoes.EventoID";
+                "left join Memos on Memos.MemoID=Eventoes.MemoID " +
+                "left join Notificacions on Notificacions.NotificacionID=Eventoes.NotificacionID";
 
             var eventos = new ObservableCollection<Evento>();//Coleccion de evento para almacenar las entradas de la tabla
             try
@@ -73,8 +73,6 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                     evento.Memo = reader[12] as string;
 
                                     evento.Notificacion = reader[13] as string;
-
-                                    Debug.WriteLine(evento.Memo+" "+evento.Notificacion);
 
                                     eventos.Add(evento);//Aniade el evento que se creo antes a la coleccion
                                 }
@@ -343,7 +341,8 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                     notif.NotificacionID = reader.GetInt32(0);//El parametro dentro de estos gets indica la posicion del atributo dentro de la tabla
                                     //se usan castings con el reader[numeroColumna] para que los null se creen solos al leer
                                     notif.Titulo = reader[1] as string;
-                                    notif.Hora = reader.GetDateTime(2);                           
+                                    notif.Hora = reader.GetDateTime(2);
+                                    Debug.WriteLine(notif.Titulo);
                                     notificaciones.Add(notif);//Aniade el memo que se creo antes a la coleccion
                                 }
                             }
@@ -384,6 +383,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.ViewModels
                                     memo.MemoID = reader.GetInt32(0);//El parametro dentro de estos gets indica la posicion del atributo dentro de la tabla
                                     //se usan castings con el reader[numeroColumna] para que los null se creen solos al leer
                                     memo.Contenido = reader[1] as string;
+                                    Debug.WriteLine(memo.Contenido);
                                     memos.Add(memo);//Aniade el memo que se creo antes a la coleccion
                                 }
                             }

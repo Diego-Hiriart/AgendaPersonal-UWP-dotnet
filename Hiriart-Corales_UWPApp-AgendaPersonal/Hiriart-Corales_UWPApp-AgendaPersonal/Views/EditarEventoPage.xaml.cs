@@ -56,7 +56,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
                 inicializaDias(dias);//Lenar los demas dias que no van a estar en el dato leido
                 this.contactosListBox.ItemsSource = ContactosViewModel.ReadContactos((App.Current as App).ConnectionString);
                 if (seleccionadoContactoPage.NotificacionID!=0)
-                {
+                { 
                     this.notifiListBox.ItemsSource = EventosViewModel.NotificacionRelacionada((App.Current as App).ConnectionString, seleccionadoContactoPage.NotificacionID);
                 }
                 if (seleccionadoContactoPage.MemoID != 0)

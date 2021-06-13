@@ -23,13 +23,25 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
                 this.seleccionadoMemoPage = (Memo)e.Parameter;
 
                 //Llenar los campos con los datos ya conocidos de la entrada seleccionada
-                this.eventosListBox.ItemsSource = EventosRelacionados((App.Current as App).ConnectionString, (DateTimeOffset)seleccionadoMemoPage.Fecha.Date);
+                if (seleccionadoMemoPage.Fecha.HasValue)//Si tiene un evento asociado, tendra fecha y se peude mandar como atributo
+                {
+                    this.eventosListBox.ItemsSource = EventosRelacionados((App.Current as App).ConnectionString, (DateTimeOffset)((DateTime)seleccionadoMemoPage.Fecha).Date);
+                }
+                //Si el memo no tiene evento relacionado no hace falta mandar a buscar
+                
                 Evento evento = new Evento();
                 foreach (Evento even in this.eventosListBox.Items)
                 {
                     evento = even;
                 }
-                this.fechaCalendarDatePicker.Date = evento.Fecha.Date;              
+                if (evento.Fecha.Equals(DateTime.MinValue))//Si no hay evento relacionado la fecha sera la minima, entonces se deja en null el picker
+                {
+                    this.fechaCalendarDatePicker.Date = null;
+                }
+                else//Si hay evento, hay una fecha que poner
+                {
+                    this.fechaCalendarDatePicker.Date = evento.Fecha.Date;
+                }        
                 this.contenidoTextBox.Text = seleccionadoMemoPage.Contenido;
             }
             else//Volver a la pantalla principal si es null, quiere decir que no se selecciono nada
@@ -54,7 +66,7 @@ namespace Hiriart_Corales_UWPApp_AgendaPersonal.Views
         private void VolverBoton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             //Llama a la vista NotificionesPage
-            this.Frame.Navigate(typeof(NotificacionesPage));
+            this.Frame.Navigate(typeof(MemosPage));
         }
 
         private async void GuardarBoton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
