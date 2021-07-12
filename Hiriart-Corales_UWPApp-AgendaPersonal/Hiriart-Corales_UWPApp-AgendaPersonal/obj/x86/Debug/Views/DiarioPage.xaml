@@ -40,9 +40,9 @@
                     <ListView.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"  >
-                                <TextBlock Text="Fecha (dd/mm/aa)" Margin="8,0" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Contenido" Width="500" Foreground="#FF403D3D" />
-                                <TextBlock Text="Eventos relacionados" Width="500" Foreground="#FF403D3D" />
+                                <TextBlock Text="Fecha (dd/mm/aa)" Margin="8,0" Width="150"/>
+                                <TextBlock Text="Contenido" Width="500" />
+                                <TextBlock Text="Eventos relacionados" Width="500"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.HeaderTemplate>
