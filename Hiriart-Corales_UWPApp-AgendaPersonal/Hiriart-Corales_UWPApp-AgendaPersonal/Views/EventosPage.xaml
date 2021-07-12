@@ -40,17 +40,17 @@
                     <ListView.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"  >
-                                <TextBlock Text="Fecha" Margin="8,0" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Hora inicio" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Hora fin" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Título" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Descripción" Width="200" Foreground="#FF403D3D" />
-                                <TextBlock Text="Ubicación" Width="200" Foreground="#FF403D3D" />
-                                <TextBlock Text="Es serie" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Días" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Contactos relacionados" Width="200" Foreground="#FF403D3D" />
-                                <TextBlock Text="Memo" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Notificación" Width="150" Foreground="#FF403D3D" />
+                                <TextBlock Text="Fecha" Margin="8,0" Width="150"/>
+                                <TextBlock Text="Hora inicio" Width="150"/>
+                                <TextBlock Text="Hora fin" Width="150"/>
+                                <TextBlock Text="Título" Width="150"/>
+                                <TextBlock Text="Descripción" Width="200"/>
+                                <TextBlock Text="Ubicación" Width="200"/>
+                                <TextBlock Text="Es serie" Width="150"/>
+                                <TextBlock Text="Días" Width="150"/>
+                                <TextBlock Text="Contactos relacionados" Width="200"/>
+                                <TextBlock Text="Memo" Width="150"/>
+                                <TextBlock Text="Notificación" Width="150"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.HeaderTemplate>

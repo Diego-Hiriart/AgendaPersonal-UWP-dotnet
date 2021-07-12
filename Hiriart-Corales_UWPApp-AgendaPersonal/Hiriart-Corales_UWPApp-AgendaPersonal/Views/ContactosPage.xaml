@@ -40,13 +40,13 @@
                     <ListView.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"  >
-                                <TextBlock Text="Nombre" Margin="8,0" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Apellido" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Teléfono" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="e-mail" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Organización" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Fecha de nacimiento" Width="150" Foreground="#FF403D3D" />
-                                <TextBlock Text="Información adicional" Width="200" Foreground="#FF403D3D" />
+                                <TextBlock Text="Nombre" Margin="8,0" Width="150"/>
+                                <TextBlock Text="Apellido" Width="150"/>
+                                <TextBlock Text="Teléfono" Width="150"/>
+                                <TextBlock Text="e-mail" Width="150"/>
+                                <TextBlock Text="Organización" Width="150"/>
+                                <TextBlock Text="Fecha de nacimiento" Width="150"/>
+                                <TextBlock Text="Información adicional" Width="200"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.HeaderTemplate>
