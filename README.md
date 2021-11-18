@@ -2,7 +2,7 @@
 
 ###Aplicación UWP de Diario Personal, Programación IV
 ###Proyecto de Progreso 2
-###Diego Hiriart & Luis Corales
+###[Diego Hiriart](https://github.com/Diego-Hiriart) & [Luis Corales](https://github.com/LuisCorales)
 
 - Esta agenda cuenta con las siguientes funcionalidades principales:
   - Gestionar/administrar (crear, editar borrar) contactos
